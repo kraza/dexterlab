@@ -1,0 +1,38 @@
+%p
+  %b Code:
+  = @doctor.code
+%p
+  %b First name:
+  = @doctor.first_name
+%p
+  %b Last name:
+  = @doctor.last_name
+%p
+  %b Designation:
+  = @doctor.designation
+%p
+  %b Cell:
+  = @doctor.cell
+%p
+  %b Phone:
+  = @doctor.phone
+%p
+  %b Address1:
+  = @doctor.address1
+%p
+  %b Address2:
+  = @doctor.address2
+%p
+  %b Postal:
+  = @doctor.postal
+%p
+  %b City:
+  = @doctor.city
+%p
+  %b State:
+  = @doctor.state
+
+
+= link_to 'Edit', edit_doctor_path(@doctor)
+\|
+= link_to 'Back', doctors_path

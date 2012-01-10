@@ -1,0 +1,34 @@
+.demo
+  = form_for @test do |f|
+    = render :partial => 'shared/errors', :locals => {:obj => @test}
+    .field
+      = f.label :code
+      = f.text_field :code
+    .field
+      .ui-widget
+        = f.label :test_category_id
+        = f.select "test_category", options_from_collection_for_select(@test_category, "id", "name")
+        =# f.text_field :test_category_id
+    .field
+      = f.label :name
+      = f.text_field :name
+    .field
+      = f.label :fees
+      = f.text_field :fees
+    .field
+      = f.label :commission_type
+      = f.text_field :commission_type
+    .field
+      = f.label :commission_value
+      = f.text_field :commission_value
+    .field
+      = f.label :description
+      = f.text_area :description
+    .field
+      = f.label :is_active
+      = f.check_box :is_active
+    .actions
+      = f.submit 'Save'
+:javascript
+  var id = $('select').filter(":first").attr("id");
+  $("#"+id).combobox();

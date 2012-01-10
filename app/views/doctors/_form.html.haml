@@ -1,0 +1,40 @@
+= form_for @doctor do |f|
+  = render :partial => 'shared/errors', :locals => {:obj => @doctor}
+  .field
+    = f.label :code
+    = f.text_field :code
+  .field
+    = f.label :first_name
+    = f.text_field :first_name
+  .field
+    = f.label :last_name
+    = f.text_field :last_name
+  .field
+    = f.label :designation
+    = f.text_field :designation
+  .field
+    = f.label :email
+    = f.email_field :email
+  .field
+    = f.label :cell
+    = f.phone_field :cell
+  .field
+    = f.label :phone
+    = f.phone_field :phone
+  .field
+    = f.label :address1
+    = f.text_field :address1
+  .field
+    = f.label :address2
+    = f.text_field :address2
+  .field
+    = f.label :postal
+    = f.text_field :postal
+  .field
+    = f.label :city
+    = f.text_field :city
+  .field
+    = f.label :state
+    = f.text_field :state
+  .actions
+    = f.submit 'Save'

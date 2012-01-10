@@ -1,0 +1,23 @@
+%h1 Listing test_categories
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Is active
+    %th
+    %th
+    %th
+
+  - @test_categories.each do |test_category|
+    %tr
+      %td= test_category.name
+      %td= test_category.description
+      %td= test_category.is_active
+      %td= link_to 'Show', test_category
+      %td= link_to 'Edit', edit_test_category_path(test_category)
+      %td= link_to 'Destroy', test_category, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Test category', new_test_category_path

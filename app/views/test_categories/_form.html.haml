@@ -1,0 +1,13 @@
+= form_for @test_category do |f|
+  = render :partial => 'shared/errors', :locals => {:obj => @test_category}
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :description
+    = f.text_area :description
+  .field
+    = f.label :is_active
+    = f.check_box :is_active
+  .actions
+    = f.submit 'Save'
