@@ -1,9 +1,10 @@
 class TestsController < ApplicationController
   before_filter :authenticate_user!
+#  respond_to :html, :js
   # GET /tests
   # GET /tests.xml
   def index
-    @tests = Test.where(:user_id => current_user.id)
+    @tests = current_user.tests
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +18,6 @@ class TestsController < ApplicationController
     @test = Test.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @test }
     end
   end
 
@@ -25,7 +25,7 @@ class TestsController < ApplicationController
   # GET /tests/new.xml
   def new
     @test = Test.new
-    @test_category = TestCategory.where(:user_id => current_user.id)
+    @test_categories = current_user.test_categories
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @test }
@@ -35,13 +35,13 @@ class TestsController < ApplicationController
   # GET /tests/1/edit
   def edit
     @test = Test.find(params[:id])
+    @test_categories = current_user.test_categories
   end
 
   # POST /tests
   # POST /tests.xml
   def create
     @test = Test.new(params[:test].merge(:user_id => current_user.id))
-
     respond_to do |format|
       if @test.save
         format.html { redirect_to(@test, :notice => 'Test was successfully created.') }
@@ -77,6 +77,14 @@ class TestsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(tests_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  #Add test for patient test basket
+  def add_test
+    @test = Test.find(params[:id])
+    respond_to do |format|
+      format.js
     end
   end
 end

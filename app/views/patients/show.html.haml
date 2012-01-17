@@ -15,20 +15,20 @@
   = @patient.last_name
 %p
   %b Test execution date:
-  = @patient.test_execution_date
+  = @patient.test_execution_date.strftime("%b %d, %Y")
 %p
   %b Test delivery date:
-  = @patient.test_delivery_date
+  = @patient.test_delivery_date.strftime("%b %d, %Y")
 %p
   %b Total amount:
-  = @patient.total_amount
+  = number_to_currency(@patient.total_amount)
 %p
   %b Advance payment:
-  = @patient.advance_payment
+  = number_to_currency(@patient.advance_payment)
 %p
   %b Is doctor receoved payment:
   = @patient.is_doctor_receoved_payment
 
 = link_to 'Edit', edit_patient_path(@patient)
-\|
+|
 = link_to 'Back', patients_path

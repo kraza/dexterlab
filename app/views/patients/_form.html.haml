@@ -1,34 +1,54 @@
-= form_for @patient do |f|
-  = render :partial => 'shared/errors', :locals => {:obj => @patient}
-  .field
-    = f.label :refrence_no
-    = f.text_field :refrence_no
-  .field
-    = f.label :doctor_id
-    = f.text_field :doctor_id
-  .field
-    = f.label :initial_name
-    = f.text_field :initial_name
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .field
-    = f.label :test_execution_date
-    = f.date_select :test_execution_date
-  .field
-    = f.label :test_delivery_date
-    = f.date_select :test_delivery_date
-  .field
-    = f.label :total_amount
-    = f.text_field :total_amount
-  .field
-    = f.label :advance_payment
-    = f.text_field :advance_payment
-  .field
-    = f.label :is_doctor_receoved_payment
-    = f.check_box :is_doctor_receoved_payment
-  .actions
-    = f.submit 'Save'
+.demo
+  = form_for @patient do |f|
+    = render :partial => 'shared/errors', :locals => {:obj => @patient}
+    .field
+      = f.label :refrence_no
+      = f.text_field :reference_number, :readonly => true
+    .field
+      = f.label :doctor_id
+      = f.select "doctor_id", options_from_collection_for_select(@doctors, "id", "name"), include_blank: true
+    .field
+      = f.label :initial_name
+      = f.text_field :initial_name
+    .field
+      = f.label :first_name
+      = f.text_field :first_name
+    .field
+      = f.label :last_name
+      = f.text_field :last_name
+    .field
+      = label_tag "Test Category "
+      = select_tag "test_category_id", options_from_collection_for_select( @test_categories, "id", "name" ), include_blank: "All Categories"
+    #testFields
+      = render :partial => "test_fields", :locals => { :tests => @tests}
+    = link_to_function "Add Test", "addTest();"
+    .field
+      .wrapper#lineTest
+        .ul
+          .li= "S.No"
+          .li= "Test Code"
+          .li= " Test Name"
+          .li= "Test Fee"
+          .li= "Doctor Charge"
+          .li= "Remove"
+    .field
+      = f.label :test_execution_date
+      = f.datepicker :test_execution_date
+    .field
+      = f.label :test_delivery_date
+      = f.datepicker :test_delivery_date
+    .field
+      = f.label :total_amount
+      = f.text_field :total_amount
+    .field
+      = f.label :advance_payment
+      = f.text_field :advance_payment
+    .field
+      = f.label :is_doctor_receoved_payment
+      = f.check_box :is_doctor_receoved_payment
+    .actions
+      = f.submit 'Save'
+
+:javascript
+  $("#patient_doctor_id").combobox();  
+  setChangeEvent("test_category_id");

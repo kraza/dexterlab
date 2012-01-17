@@ -3,7 +3,7 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.xml
   def index
-    @patients = Patient.where(:user_id => current_user.id)
+    @patients =  current_user.patients
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,7 +26,9 @@ class PatientsController < ApplicationController
   # GET /patients/new.xml
   def new
     @patient = Patient.new
-
+    @doctors = current_user.doctors
+    @test_categories = current_user.test_categories
+    @tests = current_user.tests
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @patient }
@@ -35,12 +37,15 @@ class PatientsController < ApplicationController
 
   # GET /patients/1/edit
   def edit
+    @doctors = current_user.doctors
     @patient = Patient.find(params[:id])
   end
 
   # POST /patients
   # POST /patients.xml
   def create
+    params[:patient][:test_execution_date] = Date.strptime( params[:patient][:test_execution_date], "%m/%d/%Y" ) unless params[:patient][:test_execution_date].blank?
+    params[:patient][:test_delivery_date] = Date.strptime( params[:patient][:test_delivery_date], "%m/%d/%Y" ) unless params[:patient][:test_delivery_date].blank?
     @patient = Patient.new(params[:patient].merge(:user_id => current_user.id))
     respond_to do |format|
       if @patient.save
@@ -80,4 +85,10 @@ class PatientsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def find_cart
+    session[:cart]  ||= Cart.new
+  end
+
+  private :find_cart
 end

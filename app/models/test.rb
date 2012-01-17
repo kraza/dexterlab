@@ -1,5 +1,6 @@
 class Test < ActiveRecord::Base
   belongs_to :test_category
+  belongs_to :user
   #attr_accessor :admin_test_category
 
 
@@ -7,11 +8,9 @@ class Test < ActiveRecord::Base
   validates :test_category_id, :code, :name, :commission_type, :presence => true
   validates :code, :uniqueness => true
 
+COMMISSION_TYPE = ["PERCENTAGE", "AMOUNT"]
 
-#  def test_category
-#    @admin_test_category = Admin::TestCategory.find(self.category_id)
-#  end
-
+  #Display commission value in based on commission type.
   def comission_value
     if self.commission_type == "percentage"
       "#{self.commission_value.to_i}  %"
@@ -19,4 +18,19 @@ class Test < ActiveRecord::Base
       self.commission_value
     end
   end
+
+  # Display test code and name to-gather for sexy combo box
+  def name_code
+    "#{self.code} - #{self.name} "
+  end
+
+# Calculate doctor commission.
+def doctor_commission
+   if self.commission_type == "percentage"
+      (self.commission_value.to_i) / 100
+    else
+      self.commission_value
+   end
+end
+
 end

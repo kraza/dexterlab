@@ -2,13 +2,11 @@
   = form_for @test do |f|
     = render :partial => 'shared/errors', :locals => {:obj => @test}
     .field
+      = f.label :test_category_id
+      = f.select "test_category_id", options_from_collection_for_select(@test_categories, "id", "name"), {:include_blank => 'None'}
+    .field
       = f.label :code
       = f.text_field :code
-    .field
-      .ui-widget
-        = f.label :test_category_id
-        = f.select "test_category", options_from_collection_for_select(@test_category, "id", "name")
-        =# f.text_field :test_category_id
     .field
       = f.label :name
       = f.text_field :name
@@ -16,8 +14,8 @@
       = f.label :fees
       = f.text_field :fees
     .field
-      = f.label :commission_type
-      = f.text_field :commission_type
+      = f.label :commission_type      
+      = f.select :commission_type, Test::COMMISSION_TYPE, include_blank: true
     .field
       = f.label :commission_value
       = f.text_field :commission_value
@@ -29,6 +27,7 @@
       = f.check_box :is_active
     .actions
       = f.submit 'Save'
-:javascript
-  var id = $('select').filter(":first").attr("id");
-  $("#"+id).combobox();
+:javascript  
+  $("#test_test_category_id").combobox();
+  $("#test_commission_type").combobox();
+   

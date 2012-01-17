@@ -19,7 +19,7 @@
       %td= test.test_category.name.humanize
       %td= test.code
       %td= test.name
-      %td= test.fees
+      %td= number_to_currency(test.fees)
       %td= test.commission_type
       %td= test.comission_value
       %td= test.description
@@ -27,7 +27,3 @@
       %td= link_to 'Show', test
       %td= link_to 'Edit', edit_test_path(test)
       %td= link_to 'Destroy', test, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Test', new_test_path

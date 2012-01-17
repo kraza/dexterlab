@@ -13,6 +13,8 @@ gem "ruby-debug19"
 gem "hpricot", "0.8.3", :group => :development
 gem "ruby_parser", "2.0.5", :group => :development
 gem "jquery-rails", "0.2.7"
+# For jquery date picker in date time format.
+gem 'jquery_datepicker'
 gem "haml", "3.1.2"
 gem "haml-rails", "0.3.4", :group => :development
 gem "rspec-rails", "2.6.1", :group => [:development, :test]

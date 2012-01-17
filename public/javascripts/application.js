@@ -8,7 +8,8 @@ $(document).ready(
         select = this.element.hide(),
         selected = select.children( ":selected" ),
         value = selected.val() ? selected.text() : "";
-        var input = this.input = $( "<input>" )
+        var dropDownId = select.attr("id");
+        var input = this.input = $( "<input id='"+dropDownId+"_text'>" )
         .insertAfter( select )
         .val( value )
         .autocomplete({
@@ -102,7 +103,14 @@ $(document).ready(
       }
     });
   })( jQuery )
+
+
+
   );
+/* $(function() {
+    $("#patient_test_execution_date").datepicker();
+    $("#patient_test_delivery_date").datepicker();
+  });
 /*
 	$(function() {
 		$( "#combobox" ).combobox();
@@ -110,3 +118,25 @@ $(document).ready(
 			$( "#combobox" ).toggle();
 		});
 	});*/
+function setChangeEvent(Id){
+  $("#"+Id).change( function() {
+    var catId;
+    if(  $(this).val() == "")
+      catId = 0;
+    else
+      catId     = $(this).val()
+    $.ajax({
+      url: '/test_categories/'+catId+'/tests',
+      type: "GET"
+    });
+  });
+  return false;
+}
+
+function addTest() {
+  var testId = $('#test_name_id').val();
+   $.ajax({
+      url: '/tests/'+testId+'/add_test',
+      type: "GET"
+    });
+}

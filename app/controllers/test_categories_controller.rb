@@ -3,7 +3,7 @@ class TestCategoriesController < ApplicationController
   # GET /test_categories
   # GET /test_categories.xml
   def index
-    @test_categories = TestCategory.where(:user_id => current_user.id)
+    @test_categories = current_user.test_categories
 
     respond_to do |format|
       format.html # index.html.erb
@@ -79,6 +79,18 @@ class TestCategoriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(test_categories_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  #get list of all tests related to one test category,
+  def tests
+    unless params[:id] == "0"
+      @tests = Test.where( :test_category_id => params[:id] )
+    else
+      @tests = current_user.tests
+    end
+    respond_to do |format|
+      format.js
     end
   end
 end

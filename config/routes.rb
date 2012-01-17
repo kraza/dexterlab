@@ -3,9 +3,19 @@ Dexterlab::Application.routes.draw do
 
   resources :doctors
 
-  resources :tests
-
-  resources :test_categories
+  resources :tests do
+    member do
+      get 'add_test'
+    end
+  end
+  #tests_test_category GET    /test_categories/:id/tests(.:format) {:action=>"tests", :controller=>"test_categories"}
+  # Get the list of all tests related to that specific test category.
+  resources :test_categories do
+    member do
+      get 'tests'
+    end
+    
+  end
 
   get "welcome/index"
 
@@ -24,7 +34,7 @@ Dexterlab::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
+  # 
   # Sample resource route with options:
   #   resources :products do
   #     member do

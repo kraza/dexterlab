@@ -3,7 +3,7 @@ class DoctorsController < ApplicationController
   # GET /doctors
   # GET /doctors.xml
   def index
-    @doctors = Doctor.where(:user_id => current_user.id)
+    @doctors = current_user.doctors
 
     respond_to do |format|
       format.html # index.html.erb

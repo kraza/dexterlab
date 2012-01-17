@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120110071216) do
+ActiveRecord::Schema.define(:version => 20120117121831) do
+
+  create_table "carts", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "doctors", :force => true do |t|
     t.string   "code"
@@ -52,10 +57,20 @@ ActiveRecord::Schema.define(:version => 20120110071216) do
   add_index "patients", ["doctor_id"], :name => "patients_doctor_id_fk"
   add_index "patients", ["user_id"], :name => "patients_user_id_fk"
 
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
   create_table "test_categories", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.boolean  "is_active"
+    t.boolean  "is_active",   :default => true
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -66,11 +81,11 @@ ActiveRecord::Schema.define(:version => 20120110071216) do
   create_table "tests", :force => true do |t|
     t.string   "code"
     t.string   "name"
-    t.decimal  "fees",             :precision => 10, :scale => 0
+    t.decimal  "fees",             :precision => 6, :scale => 2
     t.string   "commission_type"
-    t.decimal  "commission_value", :precision => 10, :scale => 0
+    t.decimal  "commission_value", :precision => 6, :scale => 2
     t.text     "description"
-    t.boolean  "is_active"
+    t.boolean  "is_active",                                      :default => true
     t.integer  "user_id"
     t.integer  "test_category_id"
     t.datetime "created_at"
