@@ -1,0 +1,10 @@
+.wrapper#lineTest
+  .ul
+    .li= "S.No"
+    .li= "Test Code"
+    .li= " Test Name"
+    .li= "Test Fee"
+    .li= "Doctor Charge"
+    .li= "Remove"
+  - unless @cart.blank?
+    = render :partial => "test", :collection => @cart.items

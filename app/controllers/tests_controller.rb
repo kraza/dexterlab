@@ -80,11 +80,4 @@ class TestsController < ApplicationController
     end
   end
 
-  #Add test for patient test basket
-  def add_test
-    @test = Test.find(params[:id])
-    respond_to do |format|
-      format.js
-    end
-  end
 end

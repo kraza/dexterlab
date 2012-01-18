@@ -29,6 +29,7 @@ class PatientsController < ApplicationController
     @doctors = current_user.doctors
     @test_categories = current_user.test_categories
     @tests = current_user.tests
+    @cart = find_cart
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @patient }
@@ -39,6 +40,7 @@ class PatientsController < ApplicationController
   def edit
     @doctors = current_user.doctors
     @patient = Patient.find(params[:id])
+    
   end
 
   # POST /patients
@@ -86,6 +88,28 @@ class PatientsController < ApplicationController
     end
   end
 
+  #Add test for patient test basket
+  def add_test
+    #@cart.items.each{
+    @cart = find_cart
+    unless @cart.test_ids.include?(parama[:id])
+      @test = Test.find(params[:id])
+      @cart.add_test(@test)
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  #remove test from patient basket
+  def remove_test
+    @cart = find_cart
+    @cart.clear_items(params[:id])
+     respond_to do |format|
+      format.js
+    end
+  end
+  
   def find_cart
     session[:cart]  ||= Cart.new
   end

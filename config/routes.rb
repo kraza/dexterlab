@@ -1,11 +1,12 @@
 Dexterlab::Application.routes.draw do
-  resources :patients
+  resources :tests
 
   resources :doctors
 
-  resources :tests do
+  resources :patients do
     member do
       get 'add_test'
+      delete 'remove_test'
     end
   end
   #tests_test_category GET    /test_categories/:id/tests(.:format) {:action=>"tests", :controller=>"test_categories"}

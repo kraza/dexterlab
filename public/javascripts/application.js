@@ -136,7 +136,7 @@ function setChangeEvent(Id){
 function addTest() {
   var testId = $('#test_name_id').val();
    $.ajax({
-      url: '/tests/'+testId+'/add_test',
+      url: '/patients/'+testId+'/add_test',
       type: "GET"
     });
 }

@@ -23,14 +23,7 @@
       = render :partial => "test_fields", :locals => { :tests => @tests}
     = link_to_function "Add Test", "addTest();"
     .field
-      .wrapper#lineTest
-        .ul
-          .li= "S.No"
-          .li= "Test Code"
-          .li= " Test Name"
-          .li= "Test Fee"
-          .li= "Doctor Charge"
-          .li= "Remove"
+      = render :partial => "tests_list"
     .field
       = f.label :test_execution_date
       = f.datepicker :test_execution_date
