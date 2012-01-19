@@ -1,2 +1,5 @@
-:plain
+- unless @test.blank?
   $("#lineTest").append("#{ escape_javascript( render :partial => 'test', :locals => { :test => @test})}");
+- else
+  alert("Test is already added.");
+$("#test_name_id_text").val("");

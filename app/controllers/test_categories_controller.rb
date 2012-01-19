@@ -86,11 +86,12 @@ class TestCategoriesController < ApplicationController
   def tests
     unless params[:id] == "0"
       @tests = Test.where( :test_category_id => params[:id] )
-    else
-      @tests = current_user.tests
-    end
+      else
+         @tests = current_user.tests
+       end
     respond_to do |format|
       format.js
     end
   end
 end
+

@@ -2,7 +2,7 @@ class Test < ActiveRecord::Base
   belongs_to :test_category
   belongs_to :user
   #attr_accessor :admin_test_category
- attr_accessor :s_no
+  attr_accessor :s_no
 
   validates :fees, :commission_value, :numericality => {:greater_than_or_equal_to => 0.01}
   validates :test_category_id, :code, :name, :commission_type, :presence => true
@@ -10,12 +10,7 @@ class Test < ActiveRecord::Base
 
 COMMISSION_TYPE = ["PERCENTAGE", "AMOUNT"]
 
-  #initialize serial number
-   def initialize
-    s_no = nil
-  end
 
- 
   #Display commission value in based on commission type.
   def comission_value
     if self.commission_type == "percentage"
