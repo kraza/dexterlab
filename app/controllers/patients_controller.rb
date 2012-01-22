@@ -27,9 +27,9 @@ class PatientsController < ApplicationController
   def new
     @cart = find_cart
     @patient = Patient.new
-    @doctors = current_user.doctors
-    @test_categories = current_user.test_categories
-    @tests = current_user.tests
+    @patient.refrence_no = @patient.reference_number
+    @patient.total_amount = @cart.total_amount
+    doctor_test_category_test_values
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @patient }
@@ -38,8 +38,11 @@ class PatientsController < ApplicationController
 
   # GET /patients/1/edit
   def edit
-    @doctors = current_user.doctors
+
+    @cart = find_cart
+    doctor_test_category_test_values
     @patient = Patient.find(params[:id])
+    @cart.edit_patient_tests(@patient)
 
   end
 
@@ -49,12 +52,15 @@ class PatientsController < ApplicationController
     params[:patient][:test_execution_date] = Date.strptime( params[:patient][:test_execution_date], "%m/%d/%Y" ) unless params[:patient][:test_execution_date].blank?
     params[:patient][:test_delivery_date] = Date.strptime( params[:patient][:test_delivery_date], "%m/%d/%Y" ) unless params[:patient][:test_delivery_date].blank?
     @patient = Patient.new(params[:patient].merge(:user_id => current_user.id))
+    @cart = find_cart
+    @patient.add_line_tests_from_cart(@cart)
     respond_to do |format|
       if @patient.save
         session[:cart] = nil
         format.html { redirect_to(@patient, :notice => 'Patient was successfully created.') }
         format.xml  { render :xml => @patient, :status => :created, :location => @patient }
       else
+        doctor_test_category_test_values
         format.html { render :action => "new" }
         format.xml  { render :xml => @patient.errors, :status => :unprocessable_entity }
       end
@@ -65,12 +71,25 @@ class PatientsController < ApplicationController
   # PUT /patients/1.xml
   def update
     @patient = Patient.find(params[:id])
+    @cart = find_cart
+    @patient.add_line_tests_from_cart(@cart)
+#    session_test_ids = @cart.items.collect{|item| item.id}
+#    removed_line_test_ids = @patient.line_tests.collect{|line_item| line_item.id unless session_test_ids.include?(line_item.test_id)}
+#    #removed_test_ids = db_test_ids - session_test_ids
+#    unless removed_line_test_ids.blank?
+#      removed_line_test_ids.each do |line_test_id|
+#        test = LineTest.find(line_test_id)
+#        test.destroy
+#      end
+#    end
 
+    session[:cart] = nil
     respond_to do |format|
       if @patient.update_attributes(params[:patient])
         format.html { redirect_to(@patient, :notice => 'Patient was successfully updated.') }
         format.xml  { head :ok }
       else
+        doctor_test_category_test_values
         format.html { render :action => "edit" }
         format.xml  { render :xml => @patient.errors, :status => :unprocessable_entity }
       end
@@ -117,5 +136,11 @@ class PatientsController < ApplicationController
     session[:cart]  ||= Cart.new
   end
 
-  private :find_cart
+  def doctor_test_category_test_values
+    @doctors = current_user.doctors
+    @test_categories = current_user.test_categories
+    @tests = current_user.tests
+  end
+
+  private :find_cart, :doctor_test_category_test_values
 end

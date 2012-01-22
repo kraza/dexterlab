@@ -15,6 +15,15 @@ class Cart
     @test_ids << test.id
   end
 
+  def edit_patient_tests(patient)
+    patient.line_tests.each{|item| add_test(item.test)}
+  end
+
+  #Calculate total amount
+  def total_amount
+    items.collect{|item| item.fees}.sum{|i| i}
+  end
+
   #clear deleted item from items array.
   def reset_cart test_id, s_no
     items.delete_if{|obj| obj.id.to_i == test_id.to_i }

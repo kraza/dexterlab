@@ -42,15 +42,19 @@ ActiveRecord::Schema.define(:version => 20120119182303) do
     t.decimal  "test_fee",           :precision => 6, :scale => 2
     t.decimal  "doctors_commission", :precision => 6, :scale => 2
     t.integer  "test_id"
+    t.integer  "user_id"
+    t.integer  "doctor_id"
     t.integer  "patient_id"
     t.integer  "test_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "line_tests", ["doctor_id"], :name => "line_tests_doctor_id_fk"
   add_index "line_tests", ["patient_id"], :name => "line_tests_patient_id_fk"
   add_index "line_tests", ["test_category_id"], :name => "line_tests_test_category_id_fk"
   add_index "line_tests", ["test_id"], :name => "line_tests_test_id_fk"
+  add_index "line_tests", ["user_id"], :name => "line_tests_user_id_fk"
 
   create_table "patients", :force => true do |t|
     t.string   "refrence_no"
@@ -129,9 +133,11 @@ ActiveRecord::Schema.define(:version => 20120119182303) do
 
   add_foreign_key "doctors", "users", :name => "doctors_user_id_fk"
 
+  add_foreign_key "line_tests", "doctors", :name => "line_tests_doctor_id_fk"
   add_foreign_key "line_tests", "patients", :name => "line_tests_patient_id_fk"
   add_foreign_key "line_tests", "test_categories", :name => "line_tests_test_category_id_fk"
   add_foreign_key "line_tests", "tests", :name => "line_tests_test_id_fk"
+  add_foreign_key "line_tests", "users", :name => "line_tests_user_id_fk"
 
   add_foreign_key "patients", "doctors", :name => "patients_doctor_id_fk"
   add_foreign_key "patients", "users", :name => "patients_user_id_fk"

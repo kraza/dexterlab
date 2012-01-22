@@ -6,6 +6,8 @@ class CreateLineTests < ActiveRecord::Migration
       t.decimal :doctors_commission, :precision => 6, :scale => 2
 
       t.references :test
+      t.references :user
+      t.references :doctor
       t.references :patient
       t.references :test_category
 
@@ -13,6 +15,8 @@ class CreateLineTests < ActiveRecord::Migration
     end
 
       add_foreign_key :line_tests, :tests
+      add_foreign_key :line_tests, :users
+      add_foreign_key :line_tests, :doctors
       add_foreign_key :line_tests, :patients
       add_foreign_key :line_tests, :test_categories
   end

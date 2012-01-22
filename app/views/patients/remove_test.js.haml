@@ -1,2 +1,3 @@
 :plain
   $("#lineTest").replaceWith("#{ escape_javascript( render :partial => 'tests_list')}");
+  $('#patient_total_amount').val("#{@cart.total_amount}");

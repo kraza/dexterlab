@@ -3,7 +3,7 @@
     = render :partial => 'shared/errors', :locals => {:obj => @patient}
     .field
       = f.label :refrence_no
-      = f.text_field :reference_number, :readonly => true
+      = f.text_field :refrence_no, :readonly => true
     .field
       = f.label :doctor_id
       = f.select "doctor_id", options_from_collection_for_select(@doctors, "id", "name"), include_blank: true
@@ -32,7 +32,7 @@
       = f.datepicker :test_delivery_date
     .field
       = f.label :total_amount
-      = f.text_field :total_amount
+      = f.text_field :total_amount, :readonly => true
     .field
       = f.label :advance_payment
       = f.text_field :advance_payment
@@ -43,5 +43,5 @@
       = f.submit 'Save'
 
 :javascript
-  $("#patient_doctor_id").combobox();  
+  $("#patient_doctor_id").combobox();
   setChangeEvent("test_category_id");
