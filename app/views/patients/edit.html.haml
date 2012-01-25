@@ -5,3 +5,7 @@
 = link_to 'Show', @patient
 \|
 = link_to 'Back', patients_path
+
+:javascript
+  $("#patient_doctor_id").val("#{@patient.doctor_id}")
+  $("#patient_doctor_id_text").val("#{@patient.doctor.name}");

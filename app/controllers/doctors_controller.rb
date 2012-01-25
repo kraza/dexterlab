@@ -74,6 +74,7 @@ class DoctorsController < ApplicationController
   # DELETE /doctors/1.xml
   def destroy
     @doctor = Doctor.find(params[:id])
+
     @doctor.destroy
 
     respond_to do |format|

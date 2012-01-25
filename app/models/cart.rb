@@ -15,8 +15,11 @@ class Cart
     @test_ids << test.id
   end
 
+  #On edit create cart object from line tests values if items is blank.
   def edit_patient_tests(patient)
-    patient.line_tests.each{|item| add_test(item.test)}
+    if @items.blank?
+      patient.line_tests.each{|item| add_test(item.test) }
+    end
   end
 
   #Calculate total amount
