@@ -1,7 +1,12 @@
 Dexterlab::Application.routes.draw do
   resources :tests
 
-  resources :doctors
+  #patients_list_doctors GET /doctors
+  resources :doctors do
+    member  do
+       get 'patients_list'
+    end
+  end
 
   resources :patients do
     member do

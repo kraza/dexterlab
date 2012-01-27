@@ -5,6 +5,7 @@ class Doctor < ActiveRecord::Base
 
   before_destroy :check_line_tests
   after_save :set_doc_code, :if => "code.empty?"
+  
   validates  :first_name, :designation, :cell, :presence => true
   validates :email,   :presence => true,  :uniqueness => true, :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
  validates :code, :uniqueness => true, :unless  => "code.empty?"
@@ -24,4 +25,9 @@ class Doctor < ActiveRecord::Base
   def check_line_tests
     false if self.line_tests.size > 0
   end
+
+  def total_commission
+    line_tests.inject(0){|sum,line_test| (sum + line_test.doctors_commission)}
+  end
+
 end

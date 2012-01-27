@@ -32,6 +32,7 @@
       %td= doctor.state
       %td= link_to 'Show', doctor
       %td= link_to 'Edit', edit_doctor_path(doctor)
+      %td= link_to 'Patients List', patients_list_doctor_url(doctor)
       %td= link_to 'Destroy', doctor, :confirm => 'Are you sure?', :method => :delete
 
 %br

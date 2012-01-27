@@ -42,7 +42,6 @@ class DoctorsController < ApplicationController
   # POST /doctors.xml
   def create
     @doctor = Doctor.new(params[:doctor].merge(:user_id => current_user.id))
-
     respond_to do |format|
       if @doctor.save
         format.html { redirect_to(@doctor, :notice => 'Doctor was successfully created.') }
@@ -74,12 +73,22 @@ class DoctorsController < ApplicationController
   # DELETE /doctors/1.xml
   def destroy
     @doctor = Doctor.find(params[:id])
-
     @doctor.destroy
 
     respond_to do |format|
       format.html { redirect_to(doctors_url) }
       format.xml  { head :ok }
     end
+
   end
+
+
+  # GET PATIENT_LIST /doctors/:id/patients_list
+  # This method display list of all patients and tests .
+  def patients_list
+    @doctor = Doctor.find(params[:id])
+    @doctors_patients = @doctor.patients
+    @test_categories = current_user.test_categories
+  end
+
 end
