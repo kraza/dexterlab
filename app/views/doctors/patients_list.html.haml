@@ -1,0 +1,38 @@
+%h1 Doctors Patient list is here.
+
+%h2
+  Doctor Name
+  = @doctor.name
+  = @doctor.code
+
+%h3
+  Total Commission
+  = @doctor.total_commission
+
+%h3 Patients List
+
+.wrapper#lineTest
+  .ul
+    .li= "S.No"
+    .li= "Test date"
+    .li= "Patient Name"
+    .li= " Tests"
+    .li
+      = "category"
+      .ul
+        - @test_categories.each do |test_category|
+          = test_category.name
+    .li= "Total"
+    .li= "Doctors Charge"
+  - @doctors_patients.each_with_index do |patient, i|
+    .ul
+      .li= i+1
+      .li=date_format(patient.test_execution_date)
+      .li= patient.full_name
+      .li= patient.test_names
+      .li
+        .ul
+          - @test_categories.each do |test_category|
+            = patient.sum_of_test_fee_based_on_category[test_category.id.to_s]
+      .li= "Total"
+      .li= patient.sum_of_doctor_commission
