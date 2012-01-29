@@ -1,0 +1,17 @@
+- if @test_category
+  :plain
+    $.dialog().open_as_status( "option", {
+      title: "#{ escape_javascript( @test_category.name ) }"
+    } );
+
+    // render model information with a to_html model method
+    $.dialog().content.html(
+      "#{ escape_javascript( render(:partial => 'show', :locals => { :test_category => @test_category }) ) }"
+    );
+- else
+  :plain
+    $.dialog().open_as_status( "option" {
+      title: "No record found"
+    } );
+
+    $.dialog().content.html("<p>No record found.</p>");

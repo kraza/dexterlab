@@ -4,3 +4,5 @@
   alert("Test is already added.");
 $("#test_name_id_text").val("");
 $('#patient_total_amount').val("#{@cart.total_amount}");
+$('#totalCommission').text("#{number_to_currency(@cart.total_commission, :unit => "Rs: ")}");
+$('#totalAmount').text("#{number_to_currency(@cart.total_amount, :unit => "Rs: ")}");

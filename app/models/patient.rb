@@ -4,7 +4,7 @@ class Patient < ActiveRecord::Base
   has_many :line_tests, :dependent => :destroy
 
   before_save :update_line_tests
-  
+
   validates :initial_name, :first_name, :doctor_id, :test_execution_date, :test_delivery_date, :presence => true
   validates :total_amount,  :numericality => {:greater_than_or_equal_to => 0.01}
   validates :advance_payment, :numericality => true,  :unless  => "advance_payment.nil?"
@@ -30,10 +30,10 @@ class Patient < ActiveRecord::Base
 
   #Displat name as "First_name Last_name"
   def full_name
-     first_name.humanize + " " + last_name
+     initial_name+ " " +first_name.humanize + " " + last_name
   end
 
-  
+
   #Display all tests name for current patient
   def test_names
       line_tests.collect{|line_test| Test.find(line_test.test_id).name}.join(", ")
@@ -57,5 +57,19 @@ class Patient < ActiveRecord::Base
   def update_line_tests
     line_tests.update_all(:doctor_id => self.doctor_id)
   end
-  
+
+  #calculate duse amount
+  def dues
+    total_amount - advance_payment
+  end
+
+  def to_html
+    temp = []
+
+    attributes.each_pair do | attribute, value |
+      temp.push( "<p>%s: %s</p>" % [ attribute, value ] )
+    end
+
+    temp.join
+  end
 end

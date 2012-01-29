@@ -1,10 +1,19 @@
-.wrapper#lineTest
-  .ul
-    .li= "S.No"
-    .li= "Test Code"
-    .li= " Test Name"
-    .li= "Test Fee"
-    .li= "Doctor Charge"
-    .li= "Remove"
+%table#lineTest.zebra-striped.condensed
+  %thead
+    %tr
+      %th S.No
+      %th Test Code
+      %th Test Name
+      %th Test Fee
+      %th Doctor's Charge
+      %th
+  %tbody
   - unless @cart.blank?
     = render :partial => "test", :collection => @cart.items
+    %hr
+    %tr
+      %td
+      %td
+      %td
+      %td#totalAmount= number_to_currency(@cart.total_amount, :unit => "Rs: ")
+      %td#totalCommission= number_to_currency(@cart.total_commission, :unit => "Rs: ")

@@ -1,20 +1,124 @@
 !!!
 %html
   %head
-    %title Project
-    = stylesheet_link_tag :all #'jquery.ui.all.css', 'jquery.ui.base.css', 'jquery.ui.theme.css'
-    =# stylesheet_link_tag  'demos.css', 'scaffold.css'
-    = javascript_include_tag 'jquery-1.6.2.js', 'rails.js', 'jquery.ui.core.js', 'jquery.ui.widget.js', 'jquery.ui.button.js', 'jquery.ui.position.js', |
-                                               'jquery.ui.autocomplete.js',  'jquery.ui.datepicker.js', 'application.js'
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+    %meta{:content => "IE=8", "http-equiv" => "X-UA-Compatible"}
+    %title Dexter Lab
+    = stylesheet_link_tag 'jquery-ui-1.8.16.custom.css',
+                         'drag-drop-folder-tree.css',
+                         'jquery.treeTable.css',
+                         'jstree.css',
+                         'dataTables.css',
+                         'bootstrap_style.css',
+                         'style.css',
+                         'scaffold.css'
+    = stylesheet_link_tag 'jquery.ui.all.css', 'jquery.ui.base.css', 'jquery.ui.theme.css'
+
+    = javascript_include_tag 'jquery-1.6.4.min.js', 'jquery-ui-1.8.16.custom.min.js', 'jquery_ujs',
+                             'rails.js', 'jquery.ui.core.js', 'jquery.ui.widget.js',
+                             'jquery.ui.button.js', 'jquery.ui.position.js', 'jquery.ui.autocomplete.js',
+                             'jquery.ui.datepicker.js', 'application.js'
+
+    =# javascript_include_tag 'jquery-1.6.4.min.js',
+    =#                        'jquery-ui-1.8.16.custom.min.js',
+    =#                        'jquery_ujs'
+
+    = javascript_include_tag 'bootstrap-dropdown.js',          |
+                            'bootstrap-buttons.js',            |
+                            'bootstrap-tabs.js',               |
+                            'bootstrap-twipsy.js',             |
+                            'bootstrap-popover.js'
+
+    = javascript_include_tag 'jquery.treeTable.js',
+                            'autocomplete-rails.js',
+                            'jquery.dialog.js',
+                            'jquery.dataTables.min.js',
+                            'datatables-bootstrap-paging.js'
+
     = csrf_meta_tag
+
+    :javascript
+      $(function() {
+        // setup jquery.dialog.js plugin
+        $.dialog();
+
+        // setup popovers
+        //$(".btn").popover();
+
+        // setup twipsy ( tooltips ) td elements
+        // (except those with rel="popover")
+        $("table td *:not([rel=popover])").twipsy({ "html":true });
+
+        $("#_search_text").autocomplete({
+          source: "/search"
+        });
+
+        // hook into jquery_ujs ajax events to present loading animation
+        $( document ).bind( "ajax:beforeSend", function(e, data) {
+          $('.topbar-loading-animation').show();
+        });
+
+        $( document ).bind( "ajax:complete", function(e, data) {
+          $('.topbar-loading-animation').hide();
+        });
+      });
+
+
   %body
+    .topbar
+      .topbar-inner
+        .container
+          %h3= link_to "Dexter Laboratory", root_path, { :class => 'brand', :title => 'IP Address Management Application' }
+
+          %ul.nav
+            - if user_signed_in?
+              %li= link_to 'Edit account', edit_user_registration_path
+            - else
+              %li= link_to 'Sign up', new_user_registration_path
+
+          = render 'shared/header'
+          = form_tag("", :method => :get, :class => 'pull-left' ) do
+            = search_field_tag :search_text, params[:search_text] , :id=>"_search_text", :placeholder => 'Search'
+            = image_tag( "topbar_loading_animation.gif",
+                       { :class => "topbar-loading-animation" } )
+
+          - if user_signed_in?
+            %ul.nav.secondary-nav
+              %li
+                -#Signed in as #{current_user.email}. Not you?
+                = link_to "Log Out?", destroy_user_session_path
+          - else
+            %ul.nav.secondary-nav
+              %li= link_to "Log In", new_user_session_path
+
+
+    - if flash[:notice]
+      .alert-message.block-message
+        = flash.delete(:notice)
+
+    - if flash[:error]
+      .alert-message.block-message.error
+        = flash.delete(:error)
+
+    .container
+      = yield
+
+
+    %footer.footer
+      .container
+        %p
+          Questions about this application?
+          = mail_to( 'query@dexterlab.com', 'Please email query@dexterlab.com.' )
+          %br
+          &copy; 2012, 2013 Dexter Path Lab
+
     %p#notice
       = notice
     %p.alert
       = alert
     %ul.hmenu
-      = render 'shared/links'
-      = render 'shared/header'
+      =# render 'shared/links'
+      =# render 'shared/header'
     - flash.each do |name, msg|
       = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
-    = yield
+    =# yield

@@ -1,0 +1,27 @@
+%p
+  %b Refrence no:
+  = patient.refrence_no
+%p
+  %b Refered Doctor:
+  = "#{patient.doctor.first_name} #{patient.doctor.last_name}"
+%p
+  %b Patient name:
+  = patient.full_name
+%p
+  %b Test execution date:
+  = patient.test_execution_date.strftime("%b %d, %Y")
+%p
+  %b Test delivery date:
+  = patient.test_delivery_date.strftime("%b %d, %Y")
+%p
+  %b Total amount:
+  = patient.total_amount
+%p
+  %b Advance payment:
+  = patient.advance_payment
+%p
+  %b Dues:
+  = patient.dues
+%p
+  %b Is doctor receoved payment:
+  = patient.is_doctor_receoved_payment

@@ -44,6 +44,9 @@ gem 'mysql2', '~> 0.2.11'
 # This gem gives to foreign key support.
 gem 'foreigner'
 
+# pagination
+gem 'will_paginate', '~> 3.0'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

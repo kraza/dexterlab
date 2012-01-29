@@ -36,5 +36,7 @@
   .field
     = f.label :state
     = f.text_field :state
-  .actions
-    = f.submit 'Save'
+  .ui-dialog-buttonset.fltrgt
+    = f.submit 'Save', :class => 'btn primary'
+    or
+    = link_to 'Cancel', doctors_path

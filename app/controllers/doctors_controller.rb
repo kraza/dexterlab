@@ -3,7 +3,8 @@ class DoctorsController < ApplicationController
   # GET /doctors
   # GET /doctors.xml
   def index
-    @doctors = current_user.doctors
+    @current_page = (params[:page] || 1).to_i
+    @doctors = current_user.doctors.paginate( :page => @current_page )
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,6 +18,7 @@ class DoctorsController < ApplicationController
     @doctor = Doctor.find(params[:id])
 
     respond_to do |format|
+      format.js if request.xhr?
       format.html # show.html.erb
       format.xml  { render :xml => @doctor }
     end
@@ -44,8 +46,8 @@ class DoctorsController < ApplicationController
     @doctor = Doctor.new(params[:doctor].merge(:user_id => current_user.id))
     respond_to do |format|
       if @doctor.save
-        format.html { redirect_to(@doctor, :notice => 'Doctor was successfully created.') }
-        format.xml  { render :xml => @doctor, :status => :created, :location => @doctor }
+        format.html { redirect_to(doctors_url, :notice => 'Doctor was successfully created.') }
+        format.xml  { render :xml => @doctors_url, :status => :created, :location => @doctor }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @doctor.errors, :status => :unprocessable_entity }
@@ -60,7 +62,7 @@ class DoctorsController < ApplicationController
 
     respond_to do |format|
       if @doctor.update_attributes(params[:doctor])
-        format.html { redirect_to(@doctor, :notice => 'Doctor was successfully updated.') }
+        format.html { redirect_to(doctors_url, :notice => 'Doctor was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

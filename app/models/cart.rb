@@ -27,6 +27,10 @@ class Cart
     items.collect{|item| item.fees}.sum{|i| i}
   end
 
+  #calculate Doctors total
+  def total_commission
+    items.collect{|item| item.doctor_commission}.sum{|i| i}
+  end
   #clear deleted item from items array.
   def reset_cart test_id, s_no
     items.delete_if{|obj| obj.id.to_i == test_id.to_i }

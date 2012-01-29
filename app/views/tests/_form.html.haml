@@ -14,7 +14,7 @@
       = f.label :fees
       = f.text_field :fees
     .field
-      = f.label :commission_type      
+      = f.label :commission_type
       = f.select :commission_type, Test::COMMISSION_TYPE, include_blank: true
     .field
       = f.label :commission_value
@@ -25,9 +25,11 @@
     .field
       = f.label :is_active
       = f.check_box :is_active
-    .actions
-      = f.submit 'Save'
-:javascript  
+    .ui-dialog-buttonset.fltrgt
+      = f.submit 'Save', :class => 'btn primary'
+      or
+      = link_to 'Cancel', tests_path
+
+:javascript
   $("#test_test_category_id").combobox();
   $("#test_commission_type").combobox();
-   

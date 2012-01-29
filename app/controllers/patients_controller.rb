@@ -3,7 +3,8 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.xml
   def index
-    @patients =  current_user.patients
+    @current_page = (params[:page] || 1).to_i
+    @patients =  current_user.patients.paginate(:page => @current_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,6 +18,7 @@ class PatientsController < ApplicationController
     @patient = Patient.find(params[:id])
 
     respond_to do |format|
+      format.js if request.xhr?
       format.html # show.html.erb
       format.xml  { render :xml => @patient }
     end
@@ -59,7 +61,7 @@ class PatientsController < ApplicationController
     respond_to do |format|
       if @patient.save
         kill_session
-        format.html { redirect_to(@patient, :notice => 'Patient was successfully created.') }
+        format.html { redirect_to(patients_url, :notice => 'Patient was successfully created.') }
         format.xml  { render :xml => @patient, :status => :created, :location => @patient }
       else
         doctor_test_category_test_values
@@ -84,7 +86,7 @@ class PatientsController < ApplicationController
     kill_session(@patient.id)
     respond_to do |format|
       if @patient.update_attributes(params[:patient])
-        format.html { redirect_to(@patient, :notice => 'Patient was successfully updated.') }
+        format.html { redirect_to(patients_url, :notice => 'Patient was successfully updated.') }
         format.xml  { head :ok }
       else
         doctor_test_category_test_values

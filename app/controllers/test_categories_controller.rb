@@ -3,7 +3,8 @@ class TestCategoriesController < ApplicationController
   # GET /test_categories
   # GET /test_categories.xml
   def index
-    @test_categories = current_user.test_categories
+    @current_page = (params[:page] || 1).to_i
+    @test_categories = current_user.test_categories.paginate(:page => @current_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,6 +18,7 @@ class TestCategoriesController < ApplicationController
     @test_category = TestCategory.find(params[:id])
 
     respond_to do |format|
+      format.js if request.xhr?
       format.html # show.html.erb
       format.xml  { render :xml => @test_category }
     end

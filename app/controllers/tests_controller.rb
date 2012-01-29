@@ -4,7 +4,8 @@ class TestsController < ApplicationController
   # GET /tests
   # GET /tests.xml
   def index
-    @tests = current_user.tests
+    @current_page = (params[:page] || 1).to_i
+    @tests = current_user.tests.paginate(:page => @current_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +18,7 @@ class TestsController < ApplicationController
   def show
     @test = Test.find(params[:id])
     respond_to do |format|
-      format.html # show.html.erb
+      format.js # show.html.erb
     end
   end
 
@@ -47,6 +48,7 @@ class TestsController < ApplicationController
         format.html { redirect_to(@test, :notice => 'Test was successfully created.') }
         format.xml  { render :xml => @test, :status => :created, :location => @test }
       else
+        @test_categories = current_user.test_categories
         format.html { render :action => "new" }
         format.xml  { render :xml => @test.errors, :status => :unprocessable_entity }
       end
@@ -62,6 +64,7 @@ class TestsController < ApplicationController
         format.html { redirect_to(@test, :notice => 'Test was successfully updated.') }
         format.xml  { head :ok }
       else
+        @test_categories = current_user.test_categories
         format.html { render :action => "edit" }
         format.xml  { render :xml => @test.errors, :status => :unprocessable_entity }
       end

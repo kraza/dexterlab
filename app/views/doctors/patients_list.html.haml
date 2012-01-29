@@ -1,38 +1,47 @@
-%h1 Doctors Patient list is here.
+.row
+  .span
+    %h3 Doctors Patient list is here.
 
-%h2
-  Doctor Name
-  = @doctor.name
-  = @doctor.code
+.row
+  .span
+    %h3
+      Doctor Name
+      = @doctor.name
+      = @doctor.code
 
-%h3
-  Total Commission
-  = @doctor.total_commission
+.row
+  .span
+    %h4
+      Total Commission
+      = @doctor.total_commission
 
-%h3 Patients List
+.row
+  .span
+    %h5 Patients List
 
-.wrapper#lineTest
-  .ul
-    .li= "S.No"
-    .li= "Test date"
-    .li= "Patient Name"
-    .li= " Tests"
-    .li
-      = "category"
-      .ul
+%table#lineTest.zebra-striped.condensed
+  %thead
+    %tr
+      %td S.No
+      %td Test date
+      %td Patient Name
+      %td Tests
+      %td
+        Category
+        %br
         - @test_categories.each do |test_category|
-          = test_category.name
-    .li= "Total"
-    .li= "Doctors Charge"
-  - @doctors_patients.each_with_index do |patient, i|
-    .ul
-      .li= i+1
-      .li=date_format(patient.test_execution_date)
-      .li= patient.full_name
-      .li= patient.test_names
-      .li
-        .ul
+          = test_category.name + '|'
+      %td Total
+      %td Doctors Charge
+  %tbody
+    - @doctors_patients.each_with_index do |patient, i|
+      %tr
+        %td= i+1
+        %td=date_format(patient.test_execution_date)
+        %td= patient.full_name
+        %td= patient.test_names
+        %td
           - @test_categories.each do |test_category|
             = patient.sum_of_test_fee_based_on_category[test_category.id.to_s]
-      .li= "Total"
-      .li= patient.sum_of_doctor_commission
+        %td= patient.total_amount
+        %td= patient.sum_of_doctor_commission

@@ -1,7 +1,6 @@
-%h1 Editing doctor
+.row
+  .span
+    %h3
+      Edit #{@doctor.code} Doctor
 
 = render 'form'
-
-= link_to 'Show', @doctor
-\|
-= link_to 'Back', doctors_path

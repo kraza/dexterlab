@@ -1,10 +1,9 @@
-%h1 Editing patient
-
+.row
+  .span
+    %h3
+      Edit #{@patient.refrence_no} Patient
+%br
 = render 'form'
-
-= link_to 'Show', @patient
-\|
-= link_to 'Back', patients_path
 
 :javascript
   $("#patient_doctor_id").val("#{@patient.doctor_id}")
