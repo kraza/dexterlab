@@ -1,0 +1,17 @@
+- if @test
+  :plain
+    $.dialog().open_as_status( "option", {
+      title: "#{ escape_javascript( @test.code ) }"
+    } );
+
+    // render model information with a to_html model method
+    $.dialog().content.html(
+      "#{ escape_javascript( render(:partial => 'show', :locals => { :test => @test }) ) }"
+    );
+- else
+  :plain
+    $.dialog().open_as_status( "option" {
+      title: "No record found"
+    } );
+
+    $.dialog().content.html("<p>No record found.</p>");

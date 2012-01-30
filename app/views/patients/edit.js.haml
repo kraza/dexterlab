@@ -1,0 +1,5 @@
+:plain
+  $.dialog().open( "option", { title: "#{ escape_javascript( @patient.refrence_no ) }, width: 550} );
+  $.dialog().content.html(
+    "#{ escape_javascript( render(:partial => 'show', :locals => { :patient => @patient }) ) }"
+  );

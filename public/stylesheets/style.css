@@ -1,0 +1,160 @@
+/* Correct justification in the dataTable instances */
+#userRolesTable_length label, #roleUsersTable_length label, #userTable_wrapper label, #permissionsTable_length label, #objectsTable_wrapper label{
+  text-align: left !important;
+  width: 100% !important;
+}
+
+/* Correct width in the dataTable instance */
+#userRolesTable_filter label, #roleUsersTable_filter label, #permissionsTable_filter label, #objectUsersTable_filter label, #objectRolesTable_filter label, #objectPropertyTable_filter label, #userObjectsTable_filter label{
+  width: 100% !important;
+}
+
+/* Push buttons in the headers for IPAMAuth to the right */
+.headerBtn{
+  float: right !important;
+  margin-left: 5px !important;
+}
+
+/* Push the jstree in IPAMAuth down a little */
+div#tree{
+  padding-top: 8px;
+}
+
+/* Make the jstree is IPAMAuth wrap */
+div#tree a { white-space:normal !important; height: auto; padding:1px 2px; } 
+div#tree li > ins { vertical-align:top; }
+div#tree .jstree-hovered, #demo4 .jstree-clicked { border:0; }
+
+/* topbar-loading-animation */
+.topbar-loading-animation {
+  margin:0;
+  padding-bottom:2px;
+  vertical-align:text-bottom;
+  display:none;
+}
+
+
+/* Xavient Enhancement in CSS
+  We have to enhance some css classes as per requirement */
+
+.row > .enhance-offset2 {
+  margin-left: 182px;
+}
+
+.row > .enhance-offset7 {
+  margin-left: 495px;
+}
+
+.row > .enhance-offset3 {
+  margin-left: 224px;
+}
+.row > .enhance-span2 {
+  width: 110px;
+}
+
+.arrowTableRight
+{
+  background:transparent url(../images/dhtmlgoodies_plus.gif) no-repeat 2px 10px;
+}
+.arrowTableRight *
+{
+  padding-left: 10px;
+}
+
+/* TODO Why is this needed? Don't alter bootstrap defaults. -jf */
+.btn.enhance-small {
+  padding: 5px;
+  font-size: 11px;
+}
+
+/* TODO Why is this named 'white-background'?
+ * CSS class names should reflect the _use_ of something
+ * _not_ the appearance. Fix it. - jf */
+.white-background
+{
+  -moz-border-radius: 3px 3px 3px 3px;
+  border: 1px solid #CCCCCC;
+  background:#fff !important;
+}
+
+/* Deal with preview table for split / join supernet */
+.tablelist {
+  border:1px solid #ccc;
+  overflow:scroll;
+  height:150px;
+}
+
+/* TODO: Use, not appearance. Fix. - jf */
+.overflowAuto{
+  overflow: auto;
+  min-height: 130px;
+}
+
+/* TODO: Use, not appearance. Fix. - jf */
+.blue-border
+{
+  border-bottom-color: #049cdb;
+}
+
+/* TODO: Use, not appearance. Fix. - jf */
+.height200px
+{
+  overflow: auto;
+  height: 200px;
+}
+
+/* TODO: Use, not appearance. Fix. - jf */
+.textAlignCenter
+{
+  text-align:center !important;
+}
+#containerContacts form{
+  margin-bottom: 0 !important;
+}
+
+/* TODO: Use, not appearance. Fix. - jf */
+.fltlft
+{
+  float:left !important;
+}
+
+/* TODO: Use, not appearance. Fix. - jf */
+.fltrgt
+{
+  float:right !important;
+}
+
+/* TODO: Use, not appearance. Fix. - jf */
+.enhancedhr
+{
+  background-color: #ddd;
+}
+
+/* TODO: Use, not appearance. Fix. - jf */
+.textfield-bottom-margin{margin-bottom: 3px;}
+
+textarea{
+  min-height: 100px;
+  max-height: 100px;
+  max-width: 230px;
+  min-width: 230px;
+}
+.zebra-striped tbody tr.error td {
+  background-color: #FDDFDE;
+}
+.transparent-BG
+{
+  background: transparent;
+}
+
+.field_with_errors{  
+  float:left !important;
+  margin-right: 3px;
+}
+
+footer, footer a {
+  color:#ccc;
+}
+footer {
+  border-top:1px solid #f0f0f0;
+}
