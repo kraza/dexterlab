@@ -65,8 +65,8 @@ class PatientsController < ApplicationController
         format.xml  { render :xml => @patient, :status => :created, :location => @patient }
       else
         doctor_test_category_test_values
-        @patient.test_execution_date = date_format(@patient.test_execution_date)
-        @patient.test_delivery_date = date_format(@patient.test_delivery_date)
+        @patient.test_execution_date = date_format(@patient.test_execution_date) unless params[:patient][:test_execution_date].blank?
+        @patient.test_delivery_date = date_format(@patient.test_delivery_date) unless params[:patient][:test_delivery_date].blank?
         format.html { render :action => "new" }
         format.xml  { render :xml => @patient.errors, :status => :unprocessable_entity }
       end

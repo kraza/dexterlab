@@ -9,6 +9,7 @@ class Patient < ActiveRecord::Base
   validates :total_amount,  :numericality => {:greater_than_or_equal_to => 0.01}
   validates :advance_payment, :numericality => true,  :unless  => "advance_payment.nil?"
 
+  INITIAL_NAME = [['Mr', 'mr'], ['Mrs', 'mrs'],['Miss', 'miss'], ['Master', 'master'], ['MD', 'md']]
   # This method calculate patient position on current date.
   def position
     Patient.where("created_at >=?", Date.today ).count.to_i

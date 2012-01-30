@@ -8,7 +8,7 @@
     = f.select "doctor_id", options_from_collection_for_select(@doctors, "id", "name"), include_blank: true
   .field
     = f.label :initial_name
-    = f.text_field :initial_name
+    = f.select :initial_name, Patient::INITIAL_NAME, include_blank: true
   .field
     = f.label :first_name
     = f.text_field :first_name
@@ -47,4 +47,5 @@
 
 :javascript
   $("#patient_doctor_id").combobox();
+  $("#patient_initial_name").combobox();
   setChangeEvent("test_category_id");

@@ -96,9 +96,9 @@
       .alert-message.block-message
         = flash.delete(:notice)
 
-    - if flash[:error]
+    -# if flash[:error]
       .alert-message.block-message.error
-        = flash.delete(:error)
+        =# flash.delete(:error)
 
     .container
       = yield
@@ -112,13 +112,6 @@
           %br
           &copy; 2012, 2013 Dexter Path Lab
 
-    %p#notice
-      = notice
-    %p.alert
-      = alert
-    %ul.hmenu
-      =# render 'shared/links'
-      =# render 'shared/header'
-    - flash.each do |name, msg|
-      = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
+    -# flash.each do |name, msg|
+      =# content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
     =# yield
