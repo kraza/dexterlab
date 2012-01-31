@@ -1,4 +1,5 @@
 class DoctorsController < ApplicationController
+
   before_filter :authenticate_user!
   # GET /doctors
   # GET /doctors.xml
@@ -18,10 +19,10 @@ class DoctorsController < ApplicationController
     @doctor = Doctor.find(params[:id])
 
     respond_to do |format|
-      format.js if request.xhr?
-      format.html # show.html.erb
-      format.xml  { render :xml => @doctor }
+      format.js
+      format.html { redirect_to(doctors_url) }
     end
+
   end
 
   # GET /doctors/new
@@ -91,6 +92,37 @@ class DoctorsController < ApplicationController
     @doctor = Doctor.find(params[:id])
     @doctors_patients = @doctor.patients
     @test_categories = current_user.test_categories
+  end
+
+  # This method display payment history and all will do all payment related events.
+  def account
+    @doctor = Doctor.find(params[:id])
+    @accounts = @doctor.accounts
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  #Method For Open payment popup.
+  def payment
+    @doctor = Doctor.find(params[:id])
+    @account = Account.new(:dues_amount => @doctor.total_commission)
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+  #Method for made paymet
+  def make_payment
+    @account = Account.new(params[:account].merge(:user_id => current_user.id, :doctor_id => params[:id]))
+    respond_to do |format|
+      if @account.save
+        format.js
+      else
+        format.js {render :payment}
+      end
+    end
   end
 
 end

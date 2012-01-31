@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120119182303) do
+ActiveRecord::Schema.define(:version => 20120130052050) do
+
+  create_table "accounts", :force => true do |t|
+    t.decimal  "paid_amount", :precision => 6, :scale => 2
+    t.decimal  "dues_amount", :precision => 6, :scale => 2
+    t.integer  "user_id"
+    t.integer  "doctor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "accounts", ["doctor_id"], :name => "accounts_doctor_id_fk"
+  add_index "accounts", ["user_id"], :name => "accounts_user_id_fk"
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at"
@@ -131,13 +143,12 @@ ActiveRecord::Schema.define(:version => 20120119182303) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
+  add_foreign_key "accounts", "doctors", :name => "accounts_doctor_id_fk"
+  add_foreign_key "accounts", "users", :name => "accounts_user_id_fk"
+
   add_foreign_key "doctors", "users", :name => "doctors_user_id_fk"
 
-  add_foreign_key "line_tests", "doctors", :name => "line_tests_doctor_id_fk"
   add_foreign_key "line_tests", "patients", :name => "line_tests_patient_id_fk"
-  add_foreign_key "line_tests", "test_categories", :name => "line_tests_test_category_id_fk"
-  add_foreign_key "line_tests", "tests", :name => "line_tests_test_id_fk"
-  add_foreign_key "line_tests", "users", :name => "line_tests_user_id_fk"
 
   add_foreign_key "patients", "doctors", :name => "patients_doctor_id_fk"
   add_foreign_key "patients", "users", :name => "patients_user_id_fk"

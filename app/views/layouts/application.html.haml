@@ -15,7 +15,7 @@
     = stylesheet_link_tag 'jquery.ui.all.css', 'jquery.ui.base.css', 'jquery.ui.theme.css'
 
     = javascript_include_tag 'jquery-1.6.4.min.js', 'jquery-ui-1.8.16.custom.min.js', 'jquery_ujs',
-                             'rails.js', 'jquery.ui.core.js', 'jquery.ui.widget.js',
+                             'jquery.ui.core.js', 'jquery.ui.widget.js',
                              'jquery.ui.button.js', 'jquery.ui.position.js', 'jquery.ui.autocomplete.js',
                              'jquery.ui.datepicker.js', 'application.js'
 
@@ -72,7 +72,7 @@
 
           %ul.nav
             - if user_signed_in?
-              %li= link_to 'Edit account', edit_user_registration_path
+              %li= link_to 'My Account', edit_user_registration_path
             - else
               %li= link_to 'Sign up', new_user_registration_path
 

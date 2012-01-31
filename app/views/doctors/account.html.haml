@@ -1,0 +1,47 @@
+.row
+  .span12
+    %h3 Doctors Account.
+  .span3
+    =link_to 'Back', doctors_url,  :class => "btn primary"
+
+.row
+  .span
+    %h3
+      Doctor Name
+      = @doctor.name
+      = @doctor.code
+
+.row
+  .span
+    %h4
+      Total Commission
+      = @doctor.total_commission
+
+
+%table#lineTest.zebra-striped.condensed
+  %thead
+    %tr
+      %td S.No
+      %td Month
+      %td Paymet Date
+      %td Amount
+      %td Paid Amount
+      %td Dues
+      %td
+  %tbody
+    - if @accounts.blank?
+      %tr
+        %td.textAlignCenter{:colspan => 7}
+          No Records
+    - else
+      - @accounts.each_with_index do |account, i|
+        %tr
+          %td= i + 1
+          %td= account.created_at
+          %td= account.created_at
+          %td= account.dues_amount
+          %td= account.paid_amount
+          %td= account.dues_amount - account.paid_amount
+.row
+  .span5
+    = link_to 'Payment', payment_doctor_path(@doctor.id), :remote => true, :class => "btn primary"

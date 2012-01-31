@@ -1,0 +1,9 @@
+:plain
+  $.dialog().load_stop();
+  $.dialog().open( "option", { title: "Doctor's Payment", width: 550} );
+  $.dialog().content.html("#{ escape_javascript( render(:partial => 'payment', :locals => { :account => @account }) )}");
+  $('.form li label').css("width","120px");
+  $('#new_account').submit(function() {
+        $.dialog().load_start();
+        return true;
+  });

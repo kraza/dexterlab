@@ -1,9 +1,8 @@
 .row
-  .span
+  .span11
     %h3
       Doctors Management
-.row
-  .span13
+  .span3
     = link_to 'New Doctor', new_doctor_path, :class => "btn primary"
 
 = will_paginate( @doctors, :params => { :anchor => "Doctors" } )
@@ -28,6 +27,7 @@
           %td= doctor.designation
           %td= link_to 'Show', doctor, :remote => true, :class => "btn enhance-small info"
           %td= link_to 'Edit', edit_doctor_path(doctor), :class => "btn enhance-small primary"
+          %td= link_to 'Account',  account_doctor_path(doctor), :class => "btn enhance-small primary"
           %td= link_to 'Patients List', patients_list_doctor_url(doctor), :class => "btn enhance-small primary"
           %td= link_to 'Destroy', doctor, :confirm => 'Are you sure?', :method => :delete, :class => 'btn enhance-small danger'
 

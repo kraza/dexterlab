@@ -5,7 +5,11 @@ Dexterlab::Application.routes.draw do
   resources :doctors do
     member  do
        get 'patients_list'
+       get 'account'
+       get 'payment'
+       post 'make_payment'
     end
+
   end
 
   resources :patients do
