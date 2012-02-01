@@ -96,9 +96,9 @@
       .alert-message.block-message
         = flash.delete(:notice)
 
-    -# if flash[:error]
+    - if flash[:error]
       .alert-message.block-message.error
-        =# flash.delete(:error)
+        = flash.delete(:error)
 
     .container
       = yield
