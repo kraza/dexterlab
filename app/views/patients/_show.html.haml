@@ -13,6 +13,21 @@
 %p
   %b Test delivery date:
   = patient.test_delivery_date.strftime("%b %d, %Y")
+
+%table#lineTest.zebra-striped.condensed
+  %thead
+    %tr
+      %th S.No
+      %th Test Code
+      %th Test Name
+      %th Test Fee
+  %tbody
+    - patient.line_tests.each_with_index do |line_test, i|
+      %tr
+        %td= i + 1
+        %td= line_test.test.code
+        %td= line_test.test.name
+        %td= number_to_currency(line_test.test_fee, :unit => "Rs: ")
 %p
   %b Total amount:
   = patient.total_amount
@@ -25,3 +40,5 @@
 %p
   %b Is doctor receoved payment:
   = patient.is_doctor_receoved_payment
+
+%input{:onClick => "window.print()", :type => "button", :value => "Print this page"}

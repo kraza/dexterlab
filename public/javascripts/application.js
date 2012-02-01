@@ -1,6 +1,6 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
-$(document).ready( 
+$(document).ready(
   (function( $ ) {
     $.widget( "ui.combobox", {
       _create: function() {
@@ -131,6 +131,11 @@ function setChangeEvent(Id){
     });
   });
   return false;
+}
+// Close dialog box
+function closeDialog(){
+  $.dialog().close();
+  return true;
 }
 
 function addTest() {

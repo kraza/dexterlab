@@ -45,6 +45,8 @@
       or
       = link_to 'Cancel', patients_path
 
+%input{:onClick => "window.print()", :type => "button", :value => "Print this page"}
+
 :javascript
   $("#patient_doctor_id").combobox();
   $("#patient_initial_name").combobox();
