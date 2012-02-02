@@ -9,6 +9,10 @@ class Patient < ActiveRecord::Base
   validates :total_amount,  :numericality => {:greater_than_or_equal_to => 0.01}
   validates :advance_payment, :numericality => true,  :unless  => "advance_payment.nil?"
 
+  #scope defined here
+  scope :order_by_test_date_with_range, lambda { |to_date, from_date| where("test_execution_date >= ? and test_execution_date <= ? ", to_date, from_date). order( " test_execution_date DESC")}
+  scope :order_by_test_date_with_out_range,  :order =>  " test_execution_date DESC"
+  
   INITIAL_NAME = [['Mr', 'mr'], ['Mrs', 'mrs'],['Miss', 'miss'], ['Master', 'master'], ['MD', 'md']]
   # This method calculate patient position on current date.
   def position

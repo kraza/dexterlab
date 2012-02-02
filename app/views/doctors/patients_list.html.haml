@@ -1,25 +1,30 @@
 .row
-  .span13
-    %h3 Doctors Patient list is here.
+  .span11
+    %h3 Doctors Patient list.
   .span3
+    =link_to "#{@doctor.code} Account", account_doctor_url,  :class => "btn primary"
+  .span2
     =link_to 'Back', doctors_url,  :class => "btn primary"
 
-.row
-  .span
-    %h3
-      Doctor Name
-      = @doctor.name
-      = @doctor.code
-
-.row
-  .span
-    %h4
-      Total Commission
-      = @doctor.total_commission
+= render :partial => 'payment_status', :locals => {:doctor => @doctor}
 
 .row
   .span
     %h5 Patients List
+
+.row
+  .span11
+    = form_tag(patients_list_doctor_url ,:method=>:get, :id=>"patients_list_doctor_search_form") do
+      To
+      = datepicker_input "search", "to_date", :value => @to_date
+      From
+      = datepicker_input "search", "from_date", :value => @from_date
+      = submit_tag "Search", :id=>"patients_list_doctor_search_form", :class => "btn primary"
+
+%br
+.row
+  .span10
+  = will_paginate( @doctors_patients, :params => { :anchor => "PatientList" } )
 
 %table#lineTest.zebra-striped.condensed
   %thead
@@ -47,3 +52,7 @@
             = patient.sum_of_test_fee_based_on_category[test_category.id.to_s]
         %td= patient.total_amount
         %td= patient.sum_of_doctor_commission
+
+.row
+  .span10
+    = will_paginate( @doctors_patients, :params => { :anchor => "PatientList" } )

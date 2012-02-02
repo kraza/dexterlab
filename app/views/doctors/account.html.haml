@@ -4,19 +4,7 @@
   .span3
     =link_to 'Back', doctors_url,  :class => "btn primary"
 
-.row
-  .span
-    %h3
-      Doctor Name
-      = @doctor.name
-      = @doctor.code
-
-.row
-  .span
-    %h4
-      Total Commission
-      = @doctor.total_commission
-
+= render :partial => 'payment_status', :locals => {:doctor => @doctor}
 
 %table#lineTest.zebra-striped.condensed
   %thead
@@ -38,10 +26,10 @@
         %tr
           %td= i + 1
           %td= account.created_at
-          %td= account.created_at
+          %td= date_format(account.updated_at)
           %td= account.dues_amount
           %td= account.paid_amount
-          %td= account.dues_amount - account.paid_amount
+          %td= account.dues
 .row
   .span5
     = link_to 'Payment', payment_doctor_path(@doctor.id), :remote => true, :class => "btn primary"

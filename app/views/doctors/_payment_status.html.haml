@@ -1,0 +1,25 @@
+.row
+  .span
+    %h3
+      = doctor.name
+      = doctor.code
+
+.row
+  .span4
+    %h5
+      Total Paid Commission
+      = doctor.total_paid_commission
+  .span4
+    %h5
+      Total Dues Commission:
+      = doctor.total_dues_commission
+  .span4
+    %h5
+      Total Patient Count
+      = doctor.patient_count
+  .span4
+    %h5
+      Total Lab Earn
+      = doctor.lab_earn
+
+%br

@@ -15,14 +15,12 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.xml
   def show
-    begin
-      @patient = Patient.find(params[:id])
-      respond_to do |format|
-        format.js
-        format.html { redirect_to(patients_url) }
-      end
-    rescue
-      not_valid_id
+    @patient = Patient.find(params[:id])
+
+    respond_to do |format|
+      format.js if request.xhr?
+      format.html # show.html.erb
+      format.xml  { render :xml => @patient }
     end
   end
 
@@ -150,10 +148,5 @@ class PatientsController < ApplicationController
     @tests = current_user.tests
   end
 
-  def not_valid_id
-    flash[:error] = "This is not valid id."
-    redirect_to :action => "index"
-    return
-  end
-  private :find_cart, :doctor_test_category_test_values, :not_valid_id
+  private :find_cart, :doctor_test_category_test_values
 end

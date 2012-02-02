@@ -5,7 +5,7 @@ class DoctorsController < ApplicationController
   # GET /doctors.xml
   def index
     @current_page = (params[:page] || 1).to_i
-    @doctors = current_user.doctors.paginate( :page => @current_page )
+    @doctors = current_user.doctors.paginate( :page => @current_page ).order_by_code_asc
 
     respond_to do |format|
       format.html # index.html.erb
@@ -89,8 +89,15 @@ class DoctorsController < ApplicationController
   # GET PATIENT_LIST /doctors/:id/patients_list
   # This method display list of all patients and tests .
   def patients_list
+    @to_date = (params.key?(:search)  and !params[:search][:to_date].blank?) ? params[:search][:to_date] : ""
+    @from_date =   (params.key?(:search)  and !params[:search][:from_date].blank?) ? params[:search][:from_date] : ""
+    @current_page = (params[:page] || 1).to_i
     @doctor = Doctor.find(params[:id])
-    @doctors_patients = @doctor.patients
+    if params.key?(:search)
+      @doctors_patients = @doctor.patients.paginate( :page => @current_page, :per_page =>2).order_by_test_date_with_range(date_strip(@to_date),date_strip(@from_date))
+    else
+      @doctors_patients = @doctor.patients.paginate( :page => @current_page, :per_page =>2).order_by_test_date_with_out_range
+    end
     @test_categories = current_user.test_categories
   end
 
@@ -106,11 +113,11 @@ class DoctorsController < ApplicationController
   #Method For Open payment popup.
   def payment
     @doctor = Doctor.find(params[:id])
-    @account = Account.new(:dues_amount => @doctor.total_commission)
+    @account = Account.new(:dues_amount => @doctor.total_dues_commission)
     respond_to do |format|
       format.js
     end
-
+    
   end
 
   #Method for made paymet
@@ -124,5 +131,5 @@ class DoctorsController < ApplicationController
       end
     end
   end
-
+  
 end

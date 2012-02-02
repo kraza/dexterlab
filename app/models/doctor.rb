@@ -6,10 +6,14 @@ class Doctor < ActiveRecord::Base
 
   before_destroy :check_line_tests
   after_save :set_doc_code, :if => "code.empty?"
-
+  
   validates  :first_name, :designation, :cell, :presence => true
   validates :email,   :presence => true,  :uniqueness => true, :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
- validates :code, :uniqueness => true, :unless  => "code.empty?"
+  validates :code, :uniqueness => true, :unless  => "code.empty?"
+
+
+  #scope defined here
+  scope :order_by_code_asc, :order => "code"
 
   def name
     "#{self.first_name} #{last_name}"
@@ -27,8 +31,29 @@ class Doctor < ActiveRecord::Base
     false if self.line_tests.size > 0
   end
 
+  #calculate total commission
   def total_commission
     line_tests.inject(0){|sum,line_test| (sum + line_test.doctors_commission)}
+  end
+
+  # Total Amount paid to doctor
+  def total_paid_commission
+    accounts.inject(0){|sum, account| (sum + account.paid_amount )}
+  end
+  
+  #Calculate Total dues commission
+  def total_dues_commission
+    total_commission  -  total_paid_commission
+  end
+
+  #Calculate total lab earn from current doctor object
+  def lab_earn
+    line_tests.inject(0){|sum,line_test| (sum + line_test.test_fee)}
+  end
+
+  #Calculate patient count for doctor
+  def patient_count
+    patients.count
   end
 
 end
