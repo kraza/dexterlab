@@ -27,9 +27,9 @@
           %td= i + 1
           %td= account.created_at
           %td= date_format(account.updated_at)
-          %td= account.dues_amount
-          %td= account.paid_amount
-          %td= account.dues
+          %td= number_to_currency(account.dues_amount, :unit => "Rs: ")
+          %td= number_to_currency(account.paid_amount, :unit => "Rs: ")
+          %td= number_to_currency(account.dues, :unit => "Rs: ")
 .row
   .span5
     = link_to 'Payment', payment_doctor_path(@doctor.id), :remote => true, :class => "btn primary"

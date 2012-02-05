@@ -36,7 +36,7 @@
     = f.label :advance_payment
     = f.text_field :advance_payment
   .field
-    = f.label :is_doctor_receoved_payment
+    = f.label "Doctor Received payment"
     = f.check_box :is_doctor_receoved_payment
   %br
   .ui-dialog-buttonpane.ui-helper-
@@ -45,9 +45,18 @@
       or
       = link_to 'Cancel', patients_path
 
-%input{:onClick => "window.print()", :type => "button", :value => "Print this page"}
-
 :javascript
   $("#patient_doctor_id").combobox();
   $("#patient_initial_name").combobox();
   setChangeEvent("test_category_id");
+
+  // Set advance text field value form check boxbutton
+  $("#patient_is_doctor_receoved_payment").click(function() {
+    // If checked
+    if ($("#patient_is_doctor_receoved_payment").is(":checked"))	{
+      $("#patient_advance_payment").val('');
+      $("#patient_advance_payment").attr("disabled", true);
+    } else {
+      $("#patient_advance_payment").removeAttr("disabled");
+      }
+  });

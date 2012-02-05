@@ -5,35 +5,35 @@
       = doctor.code
 
 .row
-  .span4
+  .span5
     %h5
       Total Lab Earn:
-      = doctor.lab_earn
+      = number_to_currency(doctor.lab_earn, :unit => "Rs:")
   .span4
     %h5
       Total Patient Count:
       = doctor.patient_count
-  .span4
-    %h5
-      Total Commission:
-      = doctor.total_commission
-.row
-  .span5
-    %h5
-      Total Paid Commission by lab:
-      = doctor.total_paid_commission_by_lab
   .span6
     %h5
-      Total Payment Received from Patient:
-      = doctor.total_payment_received_from_patient
+      Total Commission:
+      = number_to_currency(doctor.total_commission, :unit => "Rs:")
 .row
-  .span5
+  .span6
+    %h5
+      Total Paid Commission by lab:
+      = number_to_currency(doctor.total_paid_commission_by_lab, :unit => "Rs:")
+  .span7
+    %h5
+      Total Payment Received from Patient:
+      = number_to_currency(doctor.total_payment_received_from_patient, :unit => "Rs:")
+.row
+  .span6
     %h5
       Total Paid Commission :
-      = doctor.total_paid_commission
-  .span4
+      = number_to_currency(doctor.total_paid_commission, :unit => "Rs:")
+  .span
     %h5
       Total Dues Commission:
-      = doctor.total_dues_commission
+      = number_to_currency(doctor.total_dues_commission, :unit => "Rs:")
 
 %br

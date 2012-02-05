@@ -6,7 +6,7 @@ class Doctor < ActiveRecord::Base
 
   before_destroy :check_line_tests
   after_save :set_doc_code, :if => "code.empty?"
-  
+
   validates  :first_name, :designation, :cell, :presence => true
   validates :email,   :presence => true,  :uniqueness => true, :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
   validates :code, :uniqueness => true, :unless  => "code.empty?"
@@ -40,7 +40,7 @@ class Doctor < ActiveRecord::Base
   def total_paid_commission_by_lab
     accounts.inject(0){|sum, account| (sum + account.paid_amount )}
   end
-  
+
   #This method calculates payment received from patient during time of reference.
   def total_payment_received_from_patient
     patients.collect{|patient| patient if patient.is_recived_payment_by_doctor?}.compact.inject(0){|sum,patient| (sum + patient.total_amount)}
@@ -52,7 +52,13 @@ class Doctor < ActiveRecord::Base
   end
   #Calculate Total dues commission
   def total_dues_commission
-    total_commission  -  total_paid_commission
+    total_dues_com = total_commission  -  total_paid_commission
+    if total_dues_com > 0
+      return total_dues_com
+    else
+      return "#{- total_dues_com} (Advance)"
+    end
+
   end
 
   #Calculate total lab earn from current doctor object
