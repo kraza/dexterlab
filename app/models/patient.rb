@@ -68,6 +68,15 @@ class Patient < ActiveRecord::Base
     total_amount - advance_payment
   end
 
+  def is_recived_payment_by_doctor?
+    is_doctor_receoved_payment
+  end
+
+  #Return value yes if doctor received payment from patient.
+  def doctor_received_paymet
+    is_recived_payment_by_doctor? ? "Yes" : "No"
+  end
+  
   def to_html
     temp = []
 

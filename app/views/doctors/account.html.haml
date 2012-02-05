@@ -2,7 +2,7 @@
   .span12
     %h3 Doctors Account.
   .span3
-    =link_to 'Back', doctors_url,  :class => "btn primary"
+    =link_to 'Back', :back,  :class => "btn primary"
 
 = render :partial => 'payment_status', :locals => {:doctor => @doctor}
 
@@ -14,7 +14,7 @@
       %td Paymet Date
       %td Amount
       %td Paid Amount
-      %td Dues
+      %td Dues till last payment
       %td
   %tbody
     - if @accounts.blank?

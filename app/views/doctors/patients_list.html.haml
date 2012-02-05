@@ -4,7 +4,7 @@
   .span3
     =link_to "#{@doctor.code} Account", account_doctor_url,  :class => "btn primary"
   .span2
-    =link_to 'Back', doctors_url,  :class => "btn primary"
+    =link_to 'Back', :back,  :class => "btn primary"
 
 = render :partial => 'payment_status', :locals => {:doctor => @doctor}
 
@@ -40,6 +40,7 @@
           = test_category.name + '|'
       %td Total
       %td Doctors Charge
+      %td Doctor Received paymet
   %tbody
     - @doctors_patients.each_with_index do |patient, i|
       %tr
@@ -52,6 +53,7 @@
             = patient.sum_of_test_fee_based_on_category[test_category.id.to_s]
         %td= patient.total_amount
         %td= patient.sum_of_doctor_commission
+        %td= patient.doctor_received_paymet
 
 .row
   .span10

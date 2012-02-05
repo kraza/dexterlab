@@ -4,6 +4,7 @@
   %td= test.name
   %td= number_to_currency(test.fees, :unit => "Rs: ")
   %td= number_to_currency(test.doctor_commission, :unit => "Rs: ")
-  %td= link_to "Delete", remove_test_patient_path( test, {:s_no => test.s_no}),
+  - unless action_name == 'edit'
+    %td= link_to "Delete", remove_test_patient_path( test, {:s_no => test.s_no}),
             :confirm => 'Are you sure?', :remote=> true, :disable_with => 'loading...',
             :method => "delete", :class => 'btn enhance-small danger'

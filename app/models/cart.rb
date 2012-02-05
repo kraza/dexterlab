@@ -35,7 +35,6 @@ class Cart
   def reset_cart test_id, s_no
     items.delete_if{|obj| obj.id.to_i == test_id.to_i }
     test_ids.delete_if{|test| test.to_i == test_id.to_i}
-
     items.map{ |ob| (ob.s_no -= 1) if ob.s_no.to_i > s_no.to_i }
   end
 

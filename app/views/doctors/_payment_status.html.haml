@@ -7,19 +7,33 @@
 .row
   .span4
     %h5
-      Total Paid Commission
+      Total Lab Earn:
+      = doctor.lab_earn
+  .span4
+    %h5
+      Total Patient Count:
+      = doctor.patient_count
+  .span4
+    %h5
+      Total Commission:
+      = doctor.total_commission
+.row
+  .span5
+    %h5
+      Total Paid Commission by lab:
+      = doctor.total_paid_commission_by_lab
+  .span6
+    %h5
+      Total Payment Received from Patient:
+      = doctor.total_payment_received_from_patient
+.row
+  .span5
+    %h5
+      Total Paid Commission :
       = doctor.total_paid_commission
   .span4
     %h5
       Total Dues Commission:
       = doctor.total_dues_commission
-  .span4
-    %h5
-      Total Patient Count
-      = doctor.patient_count
-  .span4
-    %h5
-      Total Lab Earn
-      = doctor.lab_earn
 
 %br

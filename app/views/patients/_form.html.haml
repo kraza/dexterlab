@@ -20,7 +20,7 @@
     = select_tag "test_category_id", options_from_collection_for_select( @test_categories, "id", "name" ), include_blank: "All Categories"
   #testFields
     = render :partial => "test_fields", :locals => { :tests => @tests}
-    = link_to_function "Add Test", "addTest();", :class => "btn enhance-small primary"
+  = link_to_function "Add Test", "addTest();", :class => "btn enhance-small primary"
   .field
     = render :partial => "tests_list"
   .field

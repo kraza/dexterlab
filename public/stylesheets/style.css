@@ -21,7 +21,7 @@ div#tree{
 }
 
 /* Make the jstree is IPAMAuth wrap */
-div#tree a { white-space:normal !important; height: auto; padding:1px 2px; } 
+div#tree a { white-space:normal !important; height: auto; padding:1px 2px; }
 div#tree li > ins { vertical-align:top; }
 div#tree .jstree-hovered, #demo4 .jstree-clicked { border:0; }
 
@@ -147,9 +147,12 @@ textarea{
   background: transparent;
 }
 
-.field_with_errors{  
-  float:left !important;
+.field_with_errors{
+  /*float:left !important; */
   margin-right: 3px;
+  /*padding: 2px; */
+  background-color: red;
+  /*display: table; */
 }
 
 footer, footer a {

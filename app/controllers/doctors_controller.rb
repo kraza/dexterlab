@@ -94,9 +94,9 @@ class DoctorsController < ApplicationController
     @current_page = (params[:page] || 1).to_i
     @doctor = Doctor.find(params[:id])
     if params.key?(:search)
-      @doctors_patients = @doctor.patients.paginate( :page => @current_page, :per_page =>2).order_by_test_date_with_range(date_strip(@to_date),date_strip(@from_date))
+      @doctors_patients = @doctor.patients.paginate( :page => @current_page).order_by_test_date_with_range(date_strip(@to_date),date_strip(@from_date))
     else
-      @doctors_patients = @doctor.patients.paginate( :page => @current_page, :per_page =>2).order_by_test_date_with_out_range
+      @doctors_patients = @doctor.patients.paginate( :page => @current_page).order_by_test_date_with_out_range
     end
     @test_categories = current_user.test_categories
   end

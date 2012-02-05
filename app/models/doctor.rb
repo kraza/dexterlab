@@ -37,10 +37,19 @@ class Doctor < ActiveRecord::Base
   end
 
   # Total Amount paid to doctor
-  def total_paid_commission
+  def total_paid_commission_by_lab
     accounts.inject(0){|sum, account| (sum + account.paid_amount )}
   end
   
+  #This method calculates payment received from patient during time of reference.
+  def total_payment_received_from_patient
+    patients.collect{|patient| patient if patient.is_recived_payment_by_doctor?}.compact.inject(0){|sum,patient| (sum + patient.total_amount)}
+  end
+
+  #Total paid commission to doctor
+  def  total_paid_commission
+    total_paid_commission_by_lab + total_payment_received_from_patient
+  end
   #Calculate Total dues commission
   def total_dues_commission
     total_commission  -  total_paid_commission

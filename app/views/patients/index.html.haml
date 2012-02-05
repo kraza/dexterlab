@@ -35,7 +35,6 @@
             %td= patient.advance_payment
             %td= patient.is_doctor_receoved_payment
             %td= link_to 'Show', patient, :remote => true, :class => "btn enhance-small info"
-            %td= link_to 'Edit', edit_patient_path(patient), :class => "btn enhance-small primary"
             %td= link_to 'Destroy', patient, :confirm => 'Are you sure?',
                   :method => :delete, :class => 'btn enhance-small danger'
 = will_paginate( @patients, :params => { :anchor => "Patients" } )
