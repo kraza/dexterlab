@@ -4,7 +4,6 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.xml
   def index
-    debugger
     @current_page = (params[:page] || 1).to_i
     @patients =  current_user.patients.paginate(:page => @current_page).order('created_at DESC')
 
