@@ -1,5 +1,6 @@
 class DoctorsController < ApplicationController
 
+  require 'csv'
   before_filter :authenticate_user!
   # GET /doctors
   # GET /doctors.xml
@@ -93,7 +94,7 @@ class DoctorsController < ApplicationController
     @from_date =   (params.key?(:search)  and !params[:search][:from_date].blank?) ? params[:search][:from_date] : ""
     @current_page = (params[:page] || 1).to_i
     @doctor = Doctor.find(params[:id])
-    if params.key?(:search)
+    if params.key?(:search) and !@to_date.blank? and !@from_date.blank?
       @doctors_patients = @doctor.patients.paginate( :page => @current_page).order_by_test_date_with_range(date_strip(@to_date),date_strip(@from_date))
     else
       @doctors_patients = @doctor.patients.paginate( :page => @current_page).order_by_test_date_with_out_range
@@ -131,5 +132,38 @@ class DoctorsController < ApplicationController
       end
     end
   end
+
+  # GET /export_to_csv
+  # Export listed subnet reservations to a CSV file
+  def export_to_csv
+    to_date =  params[:to_date]
+    from_date =  params[:from_date]
+    @doctor = Doctor.find(params[:id])
+    test_categories = current_user.test_categories
+     if  !to_date.blank? and !from_date.blank?
+      @doctors_patients = @doctor.patients.order_by_test_date_with_range(date_strip(to_date),date_strip(from_date))
+    else
+      @doctors_patients = @doctor.patients.order_by_test_date_with_out_range
+    end
+    test_category_name =  test_categories.collect{|test_category| test_category.name}
+    header =  Patient::PATIENT_LIST_HEADERS1 + test_category_name + Patient::PATIENT_LIST_HEADERS2
+    patients_csv_string = CSV.generate do |csv|
+      # Find this definition in application_constants.rb
+      csv << header
+      @doctors_patients.each do |patient|
+        temp_array = [patient.test_execution_date, patient.full_name, patient.test_names]
+        test_categories.each do |test_category|
+          temp_array << patient.sum_of_test_fee_based_on_category[test_category.id.to_s]
+        end
+        temp_array = temp_array  + [  patient.total_amount, patient.sum_of_doctor_commission, patient.doctor_received_paymet]
+        csv << temp_array
+      end
+    end
+    # Send_data for download
+    filename = I18n.l(Time.now, :format => :short) + "- patients_list.csv"
+    send_data( patients_csv_string,
+      :type => 'text/csv; charset=utf-8; header=present',
+      :filename =>filename )
+  end # export_to_csv
   
 end

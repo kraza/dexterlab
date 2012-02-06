@@ -13,13 +13,17 @@
     %h5 Patients List
 
 .row
-  .span11
+  .span12
     = form_tag(patients_list_doctor_url ,:method=>:get, :id=>"patients_list_doctor_search_form") do
       To
       = datepicker_input "search", "to_date", :value => @to_date
       From
       = datepicker_input "search", "from_date", :value => @from_date
-      = submit_tag "Search", :id=>"patients_list_doctor_search_form", :class => "btn primary"
+      = submit_tag "Search", :id=>"patients_list_doctor_search_btn", :class => "btn primary"
+      \|
+      = link_to "Reset", patients_list_doctor_url(@doctor), :class => "btn info"
+  .span4
+    = link_to "Download as CSV", export_to_csv_doctor_url(@doctor, :to_date => "#{@to_date}"),  :class => "btn success"
 
 %br
 .row
@@ -29,18 +33,18 @@
 %table#lineTest.zebra-striped.condensed
   %thead
     %tr
-      %td S.No
-      %td Test date
-      %td Patient Name
-      %td Tests
-      %td
+      %th S.No
+      %th Test date
+      %th Patient Name
+      %th Tests
+      %th
         Category
         %br
         - @test_categories.each do |test_category|
           = test_category.name + '|'
-      %td Total
-      %td Doctors Charge
-      %td Doctor Received paymet
+      %th Total
+      %th Doctors Charge
+      %th Doctor Received paymet
   %tbody
     - @doctors_patients.each_with_index do |patient, i|
       %tr
@@ -58,3 +62,5 @@
 .row
   .span10
     = will_paginate( @doctors_patients, :params => { :anchor => "PatientList" } )
+    
+    

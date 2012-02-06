@@ -14,6 +14,11 @@ class Patient < ActiveRecord::Base
   scope :order_by_test_date_with_out_range,  :order =>  " test_execution_date DESC"
   
   INITIAL_NAME = [['Mr', 'mr'], ['Mrs', 'mrs'],['Miss', 'miss'], ['Master', 'master'], ['MD', 'md']]
+
+  #this constant use as a header for csv and pdf import
+  PATIENT_LIST_HEADERS = ['Test Date', 'Full Name', 'Tests',  'Total', 'Doctors Charge',  'Doctor Received paymet']
+  PATIENT_LIST_HEADERS1 = ['Test Date', 'Full Name', 'Tests']
+  PATIENT_LIST_HEADERS2 = [  'Total', 'Doctors Charge',  'Doctor Received paymet']
   # This method calculate patient position on current date.
   def position
     Patient.where("created_at >=?", Date.today ).count.to_i
@@ -86,4 +91,11 @@ class Patient < ActiveRecord::Base
 
     temp.join
   end
+
+  # Information to be populated in a particular CSV row
+  # This would be modified, as per specification
+  def to_ordered_array
+    [self.test_execution_date, self.full_name, self.test_names, 
+      self.total_amount, self.sum_of_doctor_commission, self.doctor_received_paymet]
+  end # to_ordered_array
 end

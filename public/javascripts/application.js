@@ -145,3 +145,29 @@ function addTest() {
       type: "GET"
     });
 }
+
+$(document).ready (function( $ ) {
+  // Search button enable only when search field has value.
+  $('#patients_list_doctor_search_btn').attr("disabled",true);
+  $("#search_from_date").change(function(){
+    if($("#search_to_date").val().length > 0  && $("#search_from_date").val().length > 0 ){
+      $('#patients_list_doctor_search_btn').attr("disabled",false);
+    }
+  });
+  $("#search_to_date").change(function(){
+    if($("#search_to_date").val().length > 0  && $("#search_from_date").val().length > 0 ){
+      $('#patients_list_doctor_search_btn').attr("disabled",false);
+    }
+  });
+
+ // Set advance text field value form check boxbutton
+  $("#patient_is_doctor_receoved_payment").click(function() {
+    // If checked
+    if ($("#patient_is_doctor_receoved_payment").is(":checked"))	{
+      $("#patient_advance_payment").val('');
+      $("#patient_advance_payment").attr("disabled", true);
+    } else {
+      $("#patient_advance_payment").removeAttr("disabled");
+      }
+  });
+});

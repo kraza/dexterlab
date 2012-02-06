@@ -1,7 +1,7 @@
 - if @patient
   :plain
     $.dialog().open( "option", {
-      title: "#{ escape_javascript( @patient.refrence_no ) }"
+      title: "#{ escape_javascript( @patient.refrence_no ) }", width: "500px" 
     } ).buttons({
           "Ok":{
               'text':'Ok',

@@ -7,6 +7,7 @@ Dexterlab::Application.routes.draw do
        get 'patients_list'
        get 'account'
        get 'payment'
+       get 'export_to_csv'
        post 'make_payment'
     end
 

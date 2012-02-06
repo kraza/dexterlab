@@ -1,7 +1,9 @@
 .row
   .span12
     %h3 Doctors Account.
-  .span3
+  .span2
+    = link_to "Patient List", patients_list_doctor_url(@doctor), :class => "btn primary"
+  .span1
     =link_to 'Back', :back,  :class => "btn primary"
 
 = render :partial => 'payment_status', :locals => {:doctor => @doctor}
