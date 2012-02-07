@@ -16,6 +16,7 @@ Dexterlab::Application.routes.draw do
   resources :patients do
       member do
       get 'add_test'
+      get 'prescription_print'
       delete 'remove_test'
       end
     end

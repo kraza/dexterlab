@@ -33,9 +33,10 @@
             %td= date_format(patient.test_delivery_date)
             %td= patient.total_amount
             %td= patient.advance_payment
-            %td= patient.is_doctor_receoved_payment
+            %td= patient.doctor_received_paymet
             %td= link_to 'Show', patient, :remote => true, :class => "btn enhance-small info"
             %td= link_to 'Destroy', patient, :confirm => 'Are you sure?',
                   :method => :delete, :class => 'btn enhance-small danger'
+            %td= link_to ' Print ', prescription_print_patient_url(patient), :remote => true, :class => "btn enhance-small success"
 = will_paginate( @patients, :params => { :anchor => "Patients" } )
 %br

@@ -127,6 +127,16 @@ class PatientsController < ApplicationController
     end
   end
 
+  #This method use to take print format for patient's prescription
+  def prescription_print
+    @patient = Patient.find(params[:id])
+    respond_to do |format|
+      format.js if request.xhr?
+      format.html # show.html.erb
+      format.xml  { render :xml => @patient }
+    end
+  end
+
   #create catt session is not present
   def find_cart(id= "new")
       # create session with cart_new for new patient and
@@ -163,5 +173,5 @@ class PatientsController < ApplicationController
     @tests = current_user.tests
   end
 
-  private :find_cart, :doctor_test_category_test_values
+  private :find_cart, :kill_session, :doctor_test_category_test_values
 end

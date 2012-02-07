@@ -1,19 +1,20 @@
 - if @patient
   :plain
     $.dialog().open( "option", {
-      title: "#{ escape_javascript( @patient.refrence_no ) }", width: "500px" 
+      title: "#{ escape_javascript( @patient.refrence_no ) }", width: "500px"
     } ).buttons({
-          "Ok":{
-              'text':'Ok',
+            "Print" :{
+              'text':'Print',
               'class': 'btn primary',
               'click': function(){
-                  closeDialog();
+                  $("#print").printElement();
+                   closeDialog();
               }}
         });
 
     // render model information with a to_html model method
     $.dialog().content.html(
-      "#{ escape_javascript( render(:partial => 'show', :locals => { :patient => @patient }) ) }"
+      "#{ escape_javascript( render(:partial => 'prescription_print', :locals => { :patient => @patient }) ) }"
     );
 - else
   :plain

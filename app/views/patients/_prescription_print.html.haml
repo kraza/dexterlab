@@ -1,0 +1,43 @@
+#print
+  %p
+    %b Refrence no:
+    = patient.refrence_no
+  %p
+    %b Refered Doctor:
+    = "#{patient.doctor.first_name} #{patient.doctor.last_name}"
+  %p
+    %b Patient name:
+    = patient.full_name
+  %p
+    %b Test execution date:
+    = patient.test_execution_date.strftime("%b %d, %Y")
+  %p
+    %b Test delivery date:
+    = patient.test_delivery_date.strftime("%b %d, %Y")
+
+  %table#lineTest.zebra-striped.condensed
+    %thead
+      %tr
+        %th S.No
+        %th Test Code
+        %th Test Name
+        %th Test Fee
+    %tbody
+      - patient.line_tests.each_with_index do |line_test, i|
+        %tr
+          %td= i + 1
+          %td= line_test.test.code
+          %td= line_test.test.name
+          %td= number_to_currency(line_test.test_fee, :unit => "Rs: ")
+  %p
+    %b Total amount:
+    =  number_to_currency(patient.total_amount || 0.00, :unit => "Rs: ")
+  %p
+    %b Advance payment:
+    =  number_to_currency(patient.advance_payment || 0.00, :unit => "Rs: ")
+  %p
+    %b Dues:
+    =  number_to_currency(patient.dues || 0.00, :unit => "Rs: ")
+  %p
+    %b Is doctor received payment:
+    = patient.doctor_received_paymet

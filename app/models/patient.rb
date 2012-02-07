@@ -70,7 +70,7 @@ class Patient < ActiveRecord::Base
 
   #calculate duse amount
   def dues
-    total_amount - advance_payment
+    total_amount - advance_payment.to_f
   end
 
   def is_recived_payment_by_doctor?

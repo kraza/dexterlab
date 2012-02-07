@@ -5,33 +5,35 @@
     = link_to "Patient List", patients_list_doctor_url(@doctor), :class => "btn primary"
   .span1
     =link_to 'Back', :back,  :class => "btn primary"
+#print
+  = render :partial => 'payment_status', :locals => {:doctor => @doctor}
 
-= render :partial => 'payment_status', :locals => {:doctor => @doctor}
-
-%table#lineTest.zebra-striped.condensed
-  %thead
-    %tr
-      %td S.No
-      %td Month
-      %td Paymet Date
-      %td Amount
-      %td Paid Amount
-      %td Dues till last payment
-      %td
-  %tbody
-    - if @accounts.blank?
+  %table#lineTest.zebra-striped.condensed
+    %thead
       %tr
-        %td.textAlignCenter{:colspan => 7}
-          No Records
-    - else
-      - @accounts.each_with_index do |account, i|
+        %td S.No
+        %td Month
+        %td Paymet Date
+        %td Amount
+        %td Paid Amount
+        %td Dues till last payment
+        %td
+    %tbody
+      - if @accounts.blank?
         %tr
-          %td= i + 1
-          %td= account.created_at
-          %td= date_format(account.updated_at)
-          %td= number_to_currency(account.dues_amount, :unit => "Rs: ")
-          %td= number_to_currency(account.paid_amount, :unit => "Rs: ")
-          %td= number_to_currency(account.dues, :unit => "Rs: ")
+          %td.textAlignCenter{:colspan => 7}
+            No Records
+      - else
+        - @accounts.each_with_index do |account, i|
+          %tr
+            %td= i + 1
+            %td= account.created_at.strftime("%B")
+            %td= date_format(account.updated_at)
+            %td= number_to_currency(account.dues_amount, :unit => "Rs: ")
+            %td= number_to_currency(account.paid_amount, :unit => "Rs: ")
+            %td= number_to_currency(account.dues, :unit => "Rs: ")
 .row
-  .span5
+  .span14
     = link_to 'Payment', payment_doctor_path(@doctor.id), :remote => true, :class => "btn primary"
+  .span2
+    =button_to_function 'Print', '$("#print").printElement();', :class => "btn success"
