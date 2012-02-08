@@ -1,34 +1,33 @@
-.demo
-  = form_for @test do |f|
-    = render :partial => 'shared/errors', :locals => {:obj => @test}
-    .field
-      = f.label :test_category_id
-      = f.select "test_category_id", options_from_collection_for_select(@test_categories, "id", "name"), {:include_blank => 'None'}
-    .field
-      = f.label :code
-      = f.text_field :code
-    .field
-      = f.label :name
-      = f.text_field :name
-    .field
-      = f.label :fees
-      = f.text_field :fees
-    .field
-      = f.label :commission_type
-      = f.select :commission_type, Test::COMMISSION_TYPE, include_blank: true
-    .field
-      = f.label :commission_value
-      = f.text_field :commission_value
-    .field
-      = f.label :description
-      = f.text_area :description
-    .field
-      = f.label :is_active
-      = f.check_box :is_active
-    .ui-dialog-buttonset.fltrgt
-      = f.submit 'Save', :class => 'btn primary'
-      or
-      = link_to 'Cancel', tests_path
+= form_for @test do |f|
+  = render :partial => 'shared/errors', :locals => {:obj => @test}
+  .input.field
+    = f.label :test_category_id
+    = f.select "test_category_id", options_from_collection_for_select(@test_categories, "id", "name"), {:include_blank => 'None'}
+  .input.field
+    = f.label :code
+    = f.text_field :code
+  .input.field
+    = f.label :name
+    = f.text_field :name
+  .input.field
+    = f.label :fees
+    = f.text_field :fees
+  .input.field
+    = f.label :commission_type
+    = f.select :commission_type, Test::COMMISSION_TYPE, include_blank: true
+  .input.field
+    = f.label :commission_value
+    = f.text_field :commission_value
+  .input.field
+    = f.label :description
+    = f.text_area :description
+  .input.field
+    = f.label :is_active
+    = f.check_box :is_active
+  .ui-dialog-buttonset.textAlignCenter
+    = f.submit 'Save', :class => 'btn primary'
+    or
+    = link_to 'Cancel', tests_path
 
 :javascript
   $("#test_test_category_id").combobox();

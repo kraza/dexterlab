@@ -1,4 +1,4 @@
-.field
+.input.field
   = label_tag "Test Name"
   - unless tests.blank?
     = select_tag "test_name_id", options_from_collection_for_select(tests, "id", "name_code"), include_blank: true
@@ -6,5 +6,4 @@
     = "No tests found."
 
 :javascript
-  
   $("#test_name_id").combobox();

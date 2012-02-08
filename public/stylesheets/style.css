@@ -34,8 +34,6 @@ div#tree .jstree-hovered, #demo4 .jstree-clicked { border:0; }
 }
 
 
-/* Xavient Enhancement in CSS
-  We have to enhance some css classes as per requirement */
 
 .row > .enhance-offset2 {
   margin-left: 182px;
@@ -61,15 +59,11 @@ div#tree .jstree-hovered, #demo4 .jstree-clicked { border:0; }
   padding-left: 10px;
 }
 
-/* TODO Why is this needed? Don't alter bootstrap defaults. -jf */
 .btn.enhance-small {
   padding: 5px;
   font-size: 11px;
 }
 
-/* TODO Why is this named 'white-background'?
- * CSS class names should reflect the _use_ of something
- * _not_ the appearance. Fix it. - jf */
 .white-background
 {
   -moz-border-radius: 3px 3px 3px 3px;
@@ -77,60 +71,52 @@ div#tree .jstree-hovered, #demo4 .jstree-clicked { border:0; }
   background:#fff !important;
 }
 
-/* Deal with preview table for split / join supernet */
 .tablelist {
   border:1px solid #ccc;
   overflow:scroll;
   height:150px;
 }
 
-/* TODO: Use, not appearance. Fix. - jf */
 .overflowAuto{
   overflow: auto;
   min-height: 130px;
 }
 
-/* TODO: Use, not appearance. Fix. - jf */
 .blue-border
 {
   border-bottom-color: #049cdb;
 }
 
-/* TODO: Use, not appearance. Fix. - jf */
 .height200px
 {
   overflow: auto;
   height: 200px;
 }
 
-/* TODO: Use, not appearance. Fix. - jf */
 .textAlignCenter
 {
   text-align:center !important;
 }
+
 #containerContacts form{
   margin-bottom: 0 !important;
 }
 
-/* TODO: Use, not appearance. Fix. - jf */
 .fltlft
 {
   float:left !important;
 }
 
-/* TODO: Use, not appearance. Fix. - jf */
 .fltrgt
 {
   float:right !important;
 }
 
-/* TODO: Use, not appearance. Fix. - jf */
 .enhancedhr
 {
   background-color: #ddd;
 }
 
-/* TODO: Use, not appearance. Fix. - jf */
 .textfield-bottom-margin{margin-bottom: 3px;}
 
 textarea{

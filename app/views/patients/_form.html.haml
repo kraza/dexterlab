@@ -1,46 +1,47 @@
 = form_for @patient do |f|
   = render :partial => 'shared/errors', :locals => {:obj => @patient}
-  .field
-    = f.label :refrence_no
+  .input.field
+    = f.label :refrence_no, :class => 'control-label'
     = f.text_field :refrence_no, :readonly => true
-  .field
+  .input.field
     = f.label :doctor_id
     = f.select "doctor_id", options_from_collection_for_select(@doctors, "id", "name"), include_blank: true
-  .field
+  .input.field
     = f.label :initial_name
     = f.select :initial_name, Patient::INITIAL_NAME, include_blank: true
-  .field
+  .input.field
     = f.label :first_name
     = f.text_field :first_name
-  .field
+  .input.field
     = f.label :last_name
     = f.text_field :last_name
-  .field
+  .input.field
     = label_tag "Test Category "
     = select_tag "test_category_id", options_from_collection_for_select( @test_categories, "id", "name" ), include_blank: "All Categories"
   #testFields
     = render :partial => "test_fields", :locals => { :tests => @tests}
-  = link_to_function "Add Test", "addTest();", :class => "btn enhance-small primary"
-  .field
+  .textAlignCenter
+    = link_to_function "Add Test", "addTest();", :class => "btn enhance-small primary"
+  .input.field
     = render :partial => "tests_list"
-  .field
+  .input.field
     = f.label :test_execution_date
     = f.datepicker :test_execution_date
-  .field
+  .input.field
     = f.label :test_delivery_date
     = f.datepicker :test_delivery_date
-  .field
+  .input.field
     = f.label :total_amount
     = f.text_field :total_amount, :readonly => true
-  .field
+  .input.field
     = f.label :advance_payment
     = f.text_field :advance_payment
-  .field
+  .input.field
     = f.label "Doctor Received payment"
     = f.check_box :is_doctor_receoved_payment
   %br
   .ui-dialog-buttonpane.ui-helper-
-    .ui-dialog-buttonset.fltrgt
+    .ui-dialog-buttonset.textAlignCenter
       = f.submit 'Save', :class => 'btn primary'
       or
       = link_to 'Cancel', patients_path
