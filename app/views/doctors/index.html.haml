@@ -5,8 +5,11 @@
   .span3
     = link_to 'New Doctor', new_doctor_path, :class => "btn primary"
 
-= will_paginate( @doctors, :params => { :anchor => "Doctors" } )
 
+%span.label.important
+  Notice : If any doctor referred to any patient then that doctor can not be deleted. It can only be deactivated.
+
+= will_paginate( @doctors, :params => { :anchor => "Doctors" } )
 .row
   .span15
     %table#Doctor.zebra-striped
@@ -15,20 +18,14 @@
           %th Code
           %th Name
           %th Designation
-          %th
-          %th Action
-          %th
-          %th
-
-      - @doctors.each do |doctor|
+          %th Status
+          %th.textAlignCenter{:width => 450} Action
+      %tbody
+      - if @doctors.blank?
         %tr
-          %td= doctor.code
-          %td= doctor.name
-          %td= doctor.designation
-          %td= link_to 'Show', doctor, :remote => true, :class => "btn enhance-small info"
-          %td= link_to 'Edit', edit_doctor_path(doctor), :class => "btn enhance-small primary"
-          %td= link_to 'Account',  account_doctor_path(doctor), :class => "btn enhance-small primary"
-          %td= link_to 'Patients List', patients_list_doctor_url(doctor), :class => "btn enhance-small primary"
-          %td= link_to 'Destroy', doctor, :confirm => 'Are you sure?', :method => :delete, :class => 'btn enhance-small danger'
+          %td.textAlignCenter{:colspan => 7}
+            No Records
+      - else
+        = render :partial => 'row', :collection => @doctors, :as => :doctor
 
 = will_paginate( @doctors, :params => { :anchor => "Doctors" } )

@@ -1,7 +1,7 @@
 class CreateAccounts < ActiveRecord::Migration
   def self.up
     create_table :accounts do |t|
-      t.decimal :paid_amount, :precision => 6, :scale => 2
+      t.decimal :paid_amount, :precision => 6, :scale => 2, :default => 0.00
       t.decimal :dues_amount, :precision => 6, :scale => 2
 
       t.references :user

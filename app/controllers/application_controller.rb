@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery :secret => '8fc080370e56e929a2d5afca5540a0f7'
-
+  
+  respond_to :js, :html
   #If value not found
   rescue_from ActiveRecord::RecordNotFound, :with => :redirect_if_not_found
   rescue_from ActionController::UnknownAction, :with => :render_404

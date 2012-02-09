@@ -26,7 +26,7 @@ class TestsController < ApplicationController
   # GET /tests/new.xml
   def new
     @test = Test.new
-    @test_categories = current_user.test_categories
+    @test_categories = current_user.test_categories.where(:is_active => true)
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @test }
@@ -36,7 +36,7 @@ class TestsController < ApplicationController
   # GET /tests/1/edit
   def edit
     @test = Test.find(params[:id])
-    @test_categories = current_user.test_categories
+    @test_categories = current_user.test_categories.where(:is_active => true)
   end
 
   # POST /tests
@@ -45,10 +45,10 @@ class TestsController < ApplicationController
     @test = Test.new(params[:test].merge(:user_id => current_user.id))
     respond_to do |format|
       if @test.save
-        format.html { redirect_to(@test, :notice => 'Test was successfully created.') }
+        format.html { redirect_to(tests_url, :notice => 'Test was successfully created.') }
         format.xml  { render :xml => @test, :status => :created, :location => @test }
       else
-        @test_categories = current_user.test_categories
+        @test_categories = current_user.test_categories.where(:is_active => true)
         format.html { render :action => "new" }
         format.xml  { render :xml => @test.errors, :status => :unprocessable_entity }
       end
@@ -59,12 +59,18 @@ class TestsController < ApplicationController
   # PUT /tests/1.xml
   def update
     @test = Test.find(params[:id])
-    respond_to do |format|
+    if params[:test].blank? #and params.include?(:is_active)
+#     params.merge!({:doctor => {:is_active => params[:is_active]}})
+      params[:test] = {}
+      params[:test][:is_active] = !@test.is_active
+    end
+    respond_with(@test) do |format|
       if @test.update_attributes(params[:test])
-        format.html { redirect_to(@test, :notice => 'Test was successfully updated.') }
+        format.js
+        format.html { redirect_to(tests_url, :notice => 'Test was successfully updated.') }
         format.xml  { head :ok }
       else
-        @test_categories = current_user.test_categories
+        @test_categories = current_user.test_categories.where(:is_active => true)
         format.html { render :action => "edit" }
         format.xml  { render :xml => @test.errors, :status => :unprocessable_entity }
       end

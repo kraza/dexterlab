@@ -60,10 +60,14 @@ class TestCategoriesController < ApplicationController
   # PUT /test_categories/1.xml
   def update
     @test_category = TestCategory.find(params[:id])
-
-    respond_to do |format|
+    if params[:test_category].blank?
+      params[:test_category] = {}
+      params[:test_category][:is_active] = !@test_category.is_active
+    end
+    respond_with(@test_category) do |format|
       if @test_category.update_attributes(params[:test_category])
-        format.html { redirect_to(@test_category, :notice => 'Test category was successfully updated.') }
+        format.js
+        format.html { redirect_to(test_categories_url, :notice => 'Test category was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -82,6 +86,13 @@ class TestCategoriesController < ApplicationController
       format.html { redirect_to(test_categories_url) }
       format.xml  { head :ok }
     end
+  end
+
+  # Toggle status
+  # Set Deactivate if status is activated and vice versa
+  def toggle_status
+    @test_category = TestCategory.find(params[:id])
+    @test_category.update_attributes(:is_active, false)
   end
 
   #get list of all tests related to one test category,

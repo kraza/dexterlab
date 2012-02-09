@@ -5,12 +5,15 @@
   .span3
     = link_to 'New Test category', new_test_category_path, :class => "btn primary"
 
+%span.label.important
+  Notice : If any test categories's test is assigned to any patient then that test category can not be deleted. It can only be deactivated.
 
 .row
   .span15
     %table#TestCategory.zebra-striped
       %thead
         %tr
+          %th S.No
           %th Name
           %th Description
           %th Status
@@ -18,13 +21,9 @@
           %th Action
           %th
       %tbody
-        - @test_categories.each do |test_category|
-          %tr
-            %td= test_category.name
-            %td= test_category.description
-            %td= test_category.is_active
-            %td= link_to 'Show', test_category, :remote => true, :class => "btn enhance-small info"
-            %td= link_to 'Edit', edit_test_category_path(test_category),
-                  :class => "btn enhance-small primary"
-            %td= link_to 'Destroy', test_category, :confirm => 'Are you sure?',
-                  :method => :delete,:class => 'btn enhance-small danger'
+      - if @test_categories.blank?
+        %tr
+          %td.textAlignCenter{:colspan => 6}
+            No Records
+      - else
+        = render :partial => 'row', :collection => @test_categories, :as => :test_category

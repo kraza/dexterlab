@@ -9,7 +9,10 @@ class Test < ActiveRecord::Base
   validates :test_category_id, :code, :name, :commission_type, :presence => true
   validates :code, :uniqueness => true
 
-COMMISSION_TYPE = ["PERCENTAGE", "AMOUNT"]
+  #scope defined here
+  #scope :all_actives, :where => {:is_active => true}
+
+  COMMISSION_TYPE = ["PERCENTAGE", "AMOUNT"]
 
 
   #Display commission value in based on commission type.
@@ -26,13 +29,22 @@ COMMISSION_TYPE = ["PERCENTAGE", "AMOUNT"]
     "#{self.code} - #{self.name} "
   end
 
-# Calculate doctor commission.
-def doctor_commission
-   if self.commission_type == "PERCENTAGE"
-      (self.commission_value)* (self.fees) / 100
-    else
-      self.commission_value
-   end
-end
+  # Calculate doctor commission.
+  def doctor_commission
+     if self.commission_type == "PERCENTAGE"
+        (self.commission_value)* (self.fees) / 100
+      else
+        self.commission_value
+     end
+  end
 
+  # display status in Active/InActive
+  def status
+    is_active? ? "Active" : "In Active"
+  end
+
+  #calculate size for line test
+  def line_test_count
+    line_tests.count
+  end
 end

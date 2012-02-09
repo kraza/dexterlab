@@ -36,6 +36,9 @@
   .input.field
     = f.label :state
     = f.text_field :state
+  .input.field
+    = f.label "Status"
+    = f.check_box :is_active
   .ui-dialog-buttonset.textAlignCenter
     = f.submit 'Save', :class => 'btn primary'
     or

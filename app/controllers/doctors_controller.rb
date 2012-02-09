@@ -61,9 +61,14 @@ class DoctorsController < ApplicationController
   # PUT /doctors/1.xml
   def update
     @doctor = Doctor.find(params[:id])
-
-    respond_to do |format|
+    if params[:doctor].blank? #and params.include?(:is_active)
+#      params.merge!({:doctor => {:is_active => params[:is_active]}})
+      params[:doctor] = {}
+      params[:doctor][:is_active] = !@doctor.is_active
+    end
+    respond_with(@doctor) do |format|
       if @doctor.update_attributes(params[:doctor])
+        format.js
         format.html { redirect_to(doctors_url, :notice => 'Doctor was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -118,12 +123,14 @@ class DoctorsController < ApplicationController
     respond_to do |format|
       format.js
     end
-    
+
   end
 
   #Method for made paymet
   def make_payment
+    params[:account][:dues_amount] = - params[:account][:dues_amount].to_f if params[:account][:dues_amount].include?("Advance")
     @account = Account.new(params[:account].merge(:user_id => current_user.id, :doctor_id => params[:id]))
+    @count = Doctor.find(params[:id]).accounts.count
     respond_to do |format|
       if @account.save
         format.js
@@ -165,5 +172,5 @@ class DoctorsController < ApplicationController
       :type => 'text/csv; charset=utf-8; header=present',
       :filename =>filename )
   end # export_to_csv
-  
+
 end

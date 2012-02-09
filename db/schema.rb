@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120130052050) do
+ActiveRecord::Schema.define(:version => 20120209073940) do
 
   create_table "accounts", :force => true do |t|
     t.decimal  "paid_amount", :precision => 6, :scale => 2
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20120130052050) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_active"
   end
 
   add_index "doctors", ["user_id"], :name => "doctors_user_id_fk"

@@ -1,1 +1,2 @@
 $.dialog().close();
+$('#accounts tr:last').after("#{escape_javascript( render(:partial => 'account_row', :locals => { :account_row => @account, :account_row_counter => @count }))}");

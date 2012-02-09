@@ -1,13 +1,16 @@
 .row
-  .span13
+  .span14
     %h3 Tests List
-  .span3
+  .span2
     = link_to 'New Test', new_test_path, :class => "btn primary"
 
-= will_paginate( @tests, :params => { :anchor => "Tests" } )
 
+%span.label.important
+  Notice : If any test is assigned to any patient then that test can not be deleted. It can only be deactivated.
+
+= will_paginate( @tests, :params => { :anchor => "Tests" } )
 .row
-  .span15
+  .span18
     %table#Test.zebra-striped
       %thead
         %tr
@@ -18,23 +21,14 @@
           %th Fees
           %th Commission value
           %th Description
-          %th Is active
-          %th
-          %th
-          %th
+          %th Status
+          %th.textAlignCenter{:width => 300} Action
       %tbody
-        - @tests.each do |test|
-          %tr
-            %td= test.test_category.name.humanize
-            %td= test.code
-            %td= test.name
-            %td= test.commission_type
-            %td= number_to_currency(test.fees,:unit => "")
-            %td= test.comission_value
-            %td= test.description
-            %td= test.is_active
-            %td= link_to 'Show', test, :remote => true, :class => "btn enhance-small info"
-            %td= link_to 'Edit', edit_test_path(test), :class => "btn enhance-small primary"
-            %td= link_to 'Destroy', test, :confirm => 'Are you sure?', :method => :delete, :class => 'btn enhance-small danger'
+      - if @tests.blank?
+        %tr
+          %td.textAlignCenter{:colspan => 7}
+            No Records
+      - else
+        = render :partial => 'row', :collection => @tests, :as => :test
 
 = will_paginate( @tests, :params => { :anchor => "Tests" } )

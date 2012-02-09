@@ -1,0 +1,1 @@
+$('#id_#{@doctor.id}').replaceWith("#{escape_javascript( render(:partial => 'row', :locals => { :doctor => @doctor }))}");

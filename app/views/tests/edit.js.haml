@@ -1,0 +1,6 @@
+:plain
+  // set up dialog and render form
+  $.dialog().open( "option", { title: "Edit #{@test.code}" } );
+  $.dialog().content.html(
+    "#{ escape_javascript( render(:partial => 'edit', :locals => { :test => @test }) ) }"
+  );

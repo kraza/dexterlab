@@ -71,4 +71,14 @@ class Doctor < ActiveRecord::Base
     patients.count
   end
 
+  # display status in Active/InActive
+  def status
+    is_active? ? "Active" : "In Active"
+  end
+
+  #calculate size for line test
+  def line_test_count
+    line_tests.count
+  end
+
 end

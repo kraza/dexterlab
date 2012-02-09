@@ -169,8 +169,8 @@ class PatientsController < ApplicationController
 
   def doctor_test_category_test_values
     @doctors = current_user.doctors
-    @test_categories = current_user.test_categories
-    @tests = current_user.tests
+    @test_categories = current_user.test_categories.where(:is_active => true)
+    @tests = current_user.tests.where(:is_active => true)
   end
 
   private :find_cart, :kill_session, :doctor_test_category_test_values

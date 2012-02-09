@@ -1,0 +1,1 @@
+$('#id_#{@test_category.id}').replaceWith("#{escape_javascript( render(:partial => 'row', :locals => { :test_category => @test_category }))}");
