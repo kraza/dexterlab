@@ -1,4 +1,5 @@
 Dexterlab::Application.routes.draw do
+  require File.expand_path("../../lib/logged_in_constraint", __FILE__)
   resources :tests
 
   #patients_list_doctors GET /doctors
@@ -29,7 +30,7 @@ Dexterlab::Application.routes.draw do
 
   end
 
-  get "welcome/index"
+  #get "welcome/index"
 
   devise_for :users
 
@@ -82,7 +83,8 @@ Dexterlab::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => "welcome#index"
+  root :to => "welcome#index", :constraints => LoggedInConstraint.new(false)
+  root :to => "welcome#home", :constraints => LoggedInConstraint.new(true)
 
   # See how all your routes lay out with "rake routes"
 

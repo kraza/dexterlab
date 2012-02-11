@@ -9,28 +9,12 @@ gem 'rails', '3.0.10'
 ## Bundle gems needed for Haml
 #
 gem "thin"
-gem "ruby-debug19"
-gem "hpricot", "0.8.3", :group => :development
-gem "ruby_parser", "2.0.5", :group => :development
 gem "jquery-rails", "0.2.7"
 # For jquery date picker in date time format.
 gem 'jquery_datepicker'
 gem "haml", "3.1.2"
-gem "haml-rails", "0.3.4", :group => :development
-gem "rspec-rails", "2.6.1", :group => [:development, :test]
-gem "factory_girl_rails", "1.1.beta1", :group => :test
-gem "cucumber-rails", "0.5.1", :group => :test
-gem "capybara", "1.0.0", :group => :test
-gem "database_cleaner", "0.6.7", :group => :test
-gem "launchy", "0.4.0", :group => :test
-gem "guard", ">= 0.6.2", :group => :development
-gem "guard-bundler", ">= 0.1.3", :group => :development
-gem "guard-rails", ">= 0.0.3", :group => :development
-gem "guard-livereload", ">= 0.3.0", :group => :development
-gem "guard-rspec", ">= 0.4.3", :group => :development
-gem "guard-cucumber", ">= 0.6.1", :group => :development
 gem "devise", "1.3.4"
-gem "rails-footnotes", ">= 3.7", :group => :development
+
 #gem "subdomain-fu"
 
 #For valid email address.
@@ -69,3 +53,26 @@ gem 'will_paginate', '~> 3.0'
 # group :development, :test do
 #   gem 'webrat'
 # end
+group :development, :test do
+  gem "ruby-debug19"
+  gem "hpricot", "0.8.3"
+  gem "ruby_parser", "2.0.5"
+  gem "haml-rails", "0.3.4"
+  gem 'rspec', '>= 2.6.0'
+  #gem "rspec-rails", "2.6.1"
+  gem 'rspec-rails', '>= 2.6.1'
+  gem 'rr'
+  gem "factory_girl_rails", "1.1.beta1"
+  gem "cucumber-rails", "0.5.1"
+  gem "capybara", "1.1.2"
+  gem "database_cleaner", "0.6.7"
+  gem "launchy", "0.4.0"
+  gem "guard", ">= 0.6.2"
+  gem "guard-bundler", ">= 0.1.3"
+  gem "guard-rails", ">= 0.0.3"
+  gem "guard-livereload", ">= 0.3.0"
+  gem "guard-rspec", ">= 0.4.3"
+  gem "guard-cucumber", ">= 0.6.1"
+  gem "rails-footnotes", ">= 3.7"
+
+end

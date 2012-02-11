@@ -1,0 +1,69 @@
+.row
+  .span16.textAlignCenter
+    %h3 Dash Board
+
+.row
+  .span8.textAlignCenter
+    %h5
+      Active Test Category:
+      = @total_active_test_category
+  .span8.textAlignCenter
+    %h5
+      Inactive Test Category:
+      = @total_inactive_test_category
+.row
+  .span8.textAlignCenter
+    %h5
+      Active Test:
+      = @total_active_test
+  .span8.textAlignCenter
+    %h5
+      Inactive Test:
+      = @total_inactive_test
+.row
+  .span8.textAlignCenter
+    %h5
+      Active Doctor:
+      = @total_active_doctor
+  .span8.textAlignCenter
+    %h5
+      Inactive Doctor:
+      = @total_inactive_doctor
+.row
+  .span8.textAlignCenter
+    %h5
+      Total patient:
+      = @total_patient_count
+  .span8.textAlignCenter
+    %h5
+      Total Test Done:
+      = @total_patient_count
+.row
+  .span8.textAlignCenter
+    %h5
+      Total Earn:
+      = number_to_currency(@total_income, :unit => "Rs:")
+  .span6
+    %h5
+      Total Doctors Commission :
+      = number_to_currency(current_user.total_doctors_commission, :unit => "Rs:")
+.row
+  .span7
+    %h5
+      Total Payment Received from Patient:
+      = number_to_currency(current_user.total_payment_received_from_patient_by_doctor, :unit => "Rs:")
+  .span6
+    %h5
+      Total Paid Commission By Lab:
+      = number_to_currency(current_user.total_paid_doctors_commission_by_lab, :unit => "Rs:")
+.row
+  .span6
+    %h5
+      Total Paid Commission:
+      = number_to_currency(current_user.total_paid_doctors_commission, :unit => "Rs:")
+  .span
+    %h5
+      Total Dues Commission:
+      = number_to_currency(current_user.total_dues_doctors_commission, :unit => "Rs:")
+
+%br
