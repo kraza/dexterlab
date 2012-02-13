@@ -43,25 +43,25 @@
     %h5
       Total Earn:
       = number_to_currency(@total_income, :unit => "Rs:")
-  .span6
+  .span6.textAlignCenter
     %h5
       Total Doctors Commission :
       = number_to_currency(current_user.total_doctors_commission, :unit => "Rs:")
 .row
-  .span7
+  .span7.textAlignCenter
     %h5
       Total Payment Received from Patient:
       = number_to_currency(current_user.total_payment_received_from_patient_by_doctor, :unit => "Rs:")
-  .span6
+  .span8.textAlignCenter
     %h5
       Total Paid Commission By Lab:
       = number_to_currency(current_user.total_paid_doctors_commission_by_lab, :unit => "Rs:")
 .row
-  .span6
+  .span6.textAlignCenter
     %h5
       Total Paid Commission:
       = number_to_currency(current_user.total_paid_doctors_commission, :unit => "Rs:")
-  .span
+  .span10.textAlignCenter
     %h5
       Total Dues Commission:
       = number_to_currency(current_user.total_dues_doctors_commission, :unit => "Rs:")

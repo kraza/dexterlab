@@ -1,7 +1,13 @@
 .row
-  .span13
-    %h3
-      Doctors Management
+  .span16.textAlignCenter
+    %h3 Doctor Management
+.row
+  .span5.fltrgt
+    = form_tag(doctors_url, :method => :get, :class => 'pull-right' ) do
+      %span{:title=>"Doctor Code/ Doctor Name/ Designation "}
+        = search_field_tag :search_text, params[:search_text] , :id=>"search_text", :class => 'input-medium search-query', :placeholder => "Search"
+        = submit_tag "Search", :class => "btn primary", :id=>'search_tests'
+
   .span3
     = link_to 'New Doctor', new_doctor_path, :class => "btn primary"
 
@@ -10,8 +16,9 @@
   Notice : If any doctor referred to any patient then that doctor can not be deleted. It can only be deactivated.
 
 = will_paginate( @doctors, :params => { :anchor => "Doctors" } )
+
 .row
-  .span15
+  .span16
     %table#Doctor.zebra-striped
       %thead
         %tr
@@ -29,3 +36,6 @@
         = render :partial => 'row', :collection => @doctors, :as => :doctor
 
 = will_paginate( @doctors, :params => { :anchor => "Doctors" } )
+
+:javascript
+  $('span[title]').twipsy({"html":true});

@@ -1,15 +1,15 @@
 %p
   %b Code:
-  = @doctor.code
+  = @doctor.code.upcase
 %p
   %b First name:
-  = @doctor.first_name
+  = @doctor.first_name.humanize
 %p
   %b Last name:
-  = @doctor.last_name
+  = @doctor.last_name.humanize
 %p
   %b Designation:
-  = @doctor.designation
+  = @doctor.designation.humanize
 %p
   %b Cell:
   = @doctor.cell
@@ -27,7 +27,10 @@
   = @doctor.postal
 %p
   %b City:
-  = @doctor.city
+  = @doctor.city.humanize
 %p
   %b State:
-  = @doctor.state
+  = @doctor.state.humanize
+%p
+  %b Status:
+  = @doctor.status

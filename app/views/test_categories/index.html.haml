@@ -1,15 +1,21 @@
 .row
-  .span13
-    %h3
-      Test Category Management
+  .span16.textAlignCenter
+    %h3 Test Category Management
+
+.row
   .span3
     = link_to 'New Test category', new_test_category_path, :class => "btn primary"
+  .span5.fltrgt
+    = form_tag(test_categories_url, :method => :get, :class => 'pull-right' ) do
+      %span{:title=>"Test Category Name "}
+        = search_field_tag :search_text, params[:search_text] , :id=>"search_text", :placeholder => 'Search', :class => 'input-medium search-query'
+        = submit_tag "Search", :class => "btn primary", :id=>'search_patienst'
 
 %span.label.important
   Notice : If any test categories's test is assigned to any patient then that test category can not be deleted. It can only be deactivated.
 
 .row
-  .span15
+  .span16
     %table#TestCategory.zebra-striped
       %thead
         %tr
@@ -27,3 +33,6 @@
             No Records
       - else
         = render :partial => 'row', :collection => @test_categories, :as => :test_category
+
+:javascript
+  $('span[title]').twipsy({"html":true});

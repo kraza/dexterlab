@@ -137,7 +137,7 @@ textarea{
   /*float:left !important; */
   margin-right: 3px;
   /*padding: 2px; */
-  background-color: red;
+background-color: #FBC7C6;
   /*display: table; */
 }
 
@@ -148,3 +148,10 @@ footer {
   border-top:1px solid #f0f0f0;
 }
 .btn-width{width: 85px !important;}
+
+.ui-autocomplete-category {
+		font-weight: bold;
+		padding: .2em .4em;
+		margin: .8em 0 .2em;
+		line-height: 1.5;
+	}

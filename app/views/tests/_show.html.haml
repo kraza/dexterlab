@@ -3,22 +3,22 @@
   = @test.test_category.name.humanize
 %p
   %b Code:
-  = @test.code
+  = @test.code.upcase
 %p
   %b Name:
   = @test.name
 %p
   %b Fees:
-  = @test.fees
+  = number_to_currency(@test.fees,:unit => "")
 %p
   %b Commission type:
   = @test.commission_type
 %p
   %b Commission value:
-  = @test.comission_value
+  =  @test.comission_value
 %p
   %b Description:
   = @test.description
 %p
-  %b Is active:
-  = @test.is_active
+  %b Status:
+  = @test.status

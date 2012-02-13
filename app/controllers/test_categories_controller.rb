@@ -1,10 +1,16 @@
 class TestCategoriesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :redirect_to_account_page!
   # GET /test_categories
   # GET /test_categories.xml
   def index
     @current_page = (params[:page] || 1).to_i
-    @test_categories = current_user.test_categories.paginate(:page => @current_page)
+     if params.include?('search_text')
+       params[:search_text] = remove_special_character(params[:search_text])
+      @test_categories = current_user.test_categories.paginate(:page => @current_page).search_by_name(params[:search_text])
+    else
+      @test_categories = current_user.test_categories.paginate(:page => @current_page).order("name")
+    end
 
     respond_to do |format|
       format.html # index.html.erb

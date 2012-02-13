@@ -1,5 +1,5 @@
 %tr{:id => "id_#{doctor.id}"}
-  %td= doctor.code
+  %td= doctor.code.upcase
   %td= doctor.name.titleize
   %td= doctor.designation.titleize
   %td= doctor.status

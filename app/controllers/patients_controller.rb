@@ -1,12 +1,18 @@
 class PatientsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :redirect_to_account_page!
   before_filter :find_cart, :only => [:new, :edit, :create, :update, :add_test, :remove_test]
   # GET /patients
   # GET /patients.xml
   def index
     @current_page = (params[:page] || 1).to_i
-    @patients =  current_user.patients.paginate(:page => @current_page).order('created_at DESC')
-
+    
+    if params.include?('search_text')
+      params[:search_text] = remove_special_character(params[:search_text])
+      @patients = current_user.patients.paginate(:page => @current_page).search_first_name_last_name_ref_no(params[:search_text])
+    else
+      @patients =  current_user.patients.paginate(:page => @current_page).order('created_at DESC')
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @patients }

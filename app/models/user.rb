@@ -12,6 +12,14 @@ class User < ActiveRecord::Base
   has_many :test_categories
   has_many :tests
   has_many :line_tests
+  has_one :user_information, :dependent => :destroy
+
+  before_create :create_user_information
+
+  #Create user information entry
+  def create_user_information
+    self.user_information = UserInformation.new
+  end
 
   #This method calculates payment received from patient.
   def total_payment_received_from_patient
@@ -40,6 +48,12 @@ class User < ActiveRecord::Base
 
   #Calculate total dues doctors commission
   def total_dues_doctors_commission
-    total_doctors_commission - total_paid_doctors_commission
+    total_dues = total_doctors_commission - total_paid_doctors_commission
+    if total_dues > 0
+      return total_dues
+    else
+      return "#{- total_dues} (Advance)"
+    end
   end
+  
 end

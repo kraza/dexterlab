@@ -1,5 +1,6 @@
 = form_for @doctor do |f|
-  = render :partial => 'shared/errors', :locals => {:obj => @doctor}
+  .input.field.span8
+    = f.error_messages
   .input.field
     = f.label :code
     = f.text_field :code

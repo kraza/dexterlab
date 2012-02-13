@@ -14,6 +14,7 @@ class Doctor < ActiveRecord::Base
 
   #scope defined here
   scope :order_by_code_asc, :order => "code"
+  scope  :search_by_first_name_last_name_code,  lambda {|search_text| where("code like '%#{search_text}%'  or designation like '%#{search_text}%' or first_name like '%#{search_text}%'  or  last_name like '%#{search_text}%' "). order( "code")}
 
   def name
     "#{self.first_name} #{last_name}"

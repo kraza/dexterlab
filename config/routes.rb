@@ -1,5 +1,13 @@
 Dexterlab::Application.routes.draw do
   require File.expand_path("../../lib/logged_in_constraint", __FILE__)
+
+  #  put "user_informations/:id" => "user_informations/update"
+  #resources :user_informations, :only => [:update]
+  
+  match  "account" => "user_informations#update", :via => :post
+  match  "account" => "user_informations#edit"#, : => :get
+  #get "user_informations/:id/edit", :as => 'account'
+  #match "user_informations/edit" => "account"
   resources :tests
 
   #patients_list_doctors GET /doctors

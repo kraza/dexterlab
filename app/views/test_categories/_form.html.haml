@@ -1,5 +1,6 @@
 = form_for @test_category do |f|
-  = render :partial => 'shared/errors', :locals => {:obj => @test_category}
+  .input.field.span8
+    = f.error_messages
   .input.field
     = f.label :name
     = f.text_field :name

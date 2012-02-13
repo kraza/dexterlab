@@ -1,8 +1,15 @@
 - if @test
   :plain
     $.dialog().open( "option", {
-      title: "#{ escape_javascript( @test.code ) }"
-    } );
+      title: "#{ escape_javascript( @test.code.upcase ) }", width: "500px"
+    } ).buttons({
+          "Ok":{
+              'text':'Ok',
+              'class': 'btn primary',
+              'click': function(){
+                  closeDialog();
+              }}
+        });
 
     // render model information with a to_html model method
     $.dialog().content.html(

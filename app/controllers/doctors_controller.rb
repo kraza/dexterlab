@@ -2,11 +2,17 @@ class DoctorsController < ApplicationController
 
   require 'csv'
   before_filter :authenticate_user!
+  before_filter :redirect_to_account_page!
   # GET /doctors
   # GET /doctors.xml
   def index
     @current_page = (params[:page] || 1).to_i
-    @doctors = current_user.doctors.paginate( :page => @current_page ).order_by_code_asc
+     if params.include?('search_text')
+       params[:search_text] = remove_special_character(params[:search_text])
+      @doctors = current_user.doctors.paginate(:page => @current_page).search_by_first_name_last_name_code(params[:search_text])
+    else
+      @doctors = current_user.doctors.paginate( :page => @current_page ).order_by_code_asc
+    end
 
     respond_to do |format|
       format.html # index.html.erb

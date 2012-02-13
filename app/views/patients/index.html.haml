@@ -1,14 +1,19 @@
 .row
-  .span13
-    %h3
-      Patients Management
+  .span16.textAlignCenter
+    %h3 Patient Management
+.row
   .span3
     = link_to 'New Patient', new_patient_path, :class => "btn primary"
+  .span5.fltrgt
+    = form_tag(patients_url, :method => :get, :class => 'pull-right' ) do
+      %span{:title=>"Refrence No /  Name "}
+        = search_field_tag :search_text, params[:search_text] , :id=>"search_text", :placeholder => 'Search', :class => 'input-medium search-query'
+        = submit_tag "Search", :class => "btn primary", :id=>'search_patienst'
 
 = will_paginate( @patients, :params => { :anchor => "Patients" } )
 
 .row
-  .span15
+  .span16
     %table#Patient.zebra-striped
       %thead
         %tr
@@ -39,4 +44,6 @@
                   :method => :delete, :class => 'btn danger'
             %td= link_to ' Print ', prescription_print_patient_url(patient), :remote => true, :class => "btn success"
 = will_paginate( @patients, :params => { :anchor => "Patients" } )
-%br
+
+:javascript
+  $('span[title]').twipsy({"html":true});

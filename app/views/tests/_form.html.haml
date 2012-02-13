@@ -1,5 +1,6 @@
 = form_for @test do |f|
-  = render :partial => 'shared/errors', :locals => {:obj => @test}
+  .input.field.span8
+    = f.error_messages
   .input.field
     = f.label :test_category_id
     = f.select "test_category_id", options_from_collection_for_select(@test_categories, "id", "name"), {:include_blank => 'None'}

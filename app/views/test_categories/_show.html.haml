@@ -1,9 +1,9 @@
 %p
   %b Name:
-  = @test_category.name
+  = @test_category.name.titleize
 %p
   %b Description:
   = @test_category.description
 %p
   %b Is active:
-  = @test_category.is_active
+  = @test_category.status

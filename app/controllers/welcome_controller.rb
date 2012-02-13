@@ -1,4 +1,5 @@
 class WelcomeController < ApplicationController
+   before_filter :redirect_to_account_page!, :only => :home
   def index
   end
 

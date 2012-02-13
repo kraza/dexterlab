@@ -1,34 +1,44 @@
 .row
-  .span14
-    %h3 Tests List
-  .span2
+  .span16.textAlignCenter
+    %h3 Test Management
+
+.row
+  .span3
     = link_to 'New Test', new_test_path, :class => "btn primary"
 
+  .span5.fltrgt
+    = form_tag(tests_url, :method => :get, :class => 'pull-right' ) do
+      %span{:title=>"Category Name/ Test Name / Test Code/ Commission Type"}
+        = search_field_tag :search_text, params[:search_text] , :id=>"search_text", :class => 'input-medium search-query', :placeholder => "Search"
+        = submit_tag "Search", :class => "btn primary", :id=>'search_tests'
 
 %span.label.important
   Notice : If any test is assigned to any patient then that test can not be deleted. It can only be deactivated.
 
 = will_paginate( @tests, :params => { :anchor => "Tests" } )
+
 .row
-  .span18
+  .span16
     %table#Test.zebra-striped
       %thead
         %tr
           %th Test Category
           %th Code
           %th Name
-          %th Commission type
+          %th Type
           %th Fees
-          %th Commission value
-          %th Description
+          %th Value
           %th Status
           %th.textAlignCenter{:width => 300} Action
       %tbody
       - if @tests.blank?
         %tr
-          %td.textAlignCenter{:colspan => 7}
+          %td.textAlignCenter{:colspan => 8}
             No Records
       - else
         = render :partial => 'row', :collection => @tests, :as => :test
 
 = will_paginate( @tests, :params => { :anchor => "Tests" } )
+
+:javascript
+  $('span[title]').twipsy({"html":true});

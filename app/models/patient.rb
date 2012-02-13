@@ -12,6 +12,7 @@ class Patient < ActiveRecord::Base
   #scope defined here
   scope :order_by_test_date_with_range, lambda { |to_date, from_date| where("test_execution_date >= ? and test_execution_date <= ? ", to_date, from_date). order( " test_execution_date DESC")}
   scope :order_by_test_date_with_out_range,  :order =>  " test_execution_date DESC"
+  scope  :search_first_name_last_name_ref_no,  lambda {|search_text| where("refrence_no like '%#{search_text}%'  or initial_name like '%#{search_text}%' or first_name like '%#{search_text}%'  or  last_name like '%#{search_text}%' "). order( " test_execution_date DESC")}
   
   INITIAL_NAME = [['Mr', 'mr'], ['Mrs', 'mrs'],['Miss', 'miss'], ['Master', 'master'], ['MD', 'md']]
 
@@ -40,7 +41,7 @@ class Patient < ActiveRecord::Base
 
   #Displat name as "First_name Last_name"
   def full_name
-     initial_name+ " " +first_name.humanize + " " + last_name
+     initial_name.humanize+ " " +first_name.humanize + " " + last_name
   end
 
 

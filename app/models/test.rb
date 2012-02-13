@@ -9,9 +9,9 @@ class Test < ActiveRecord::Base
   validates :test_category_id, :code, :name, :commission_type, :presence => true
   validates :code, :uniqueness => true
 
-  #scope defined here
-  #scope :all_actives, :where => {:is_active => true}
-
+  #scope is defined here
+  scope  :search_by_test_name_test_code_category_name,  lambda {|search_text|  joins("join test_categories on test_categories.id = tests.test_category_id"). where("tests.name like '%#{search_text}%'  or tests.code like '%#{search_text}%' or tests.commission_type like '%#{search_text}%' or test_categories.name like '%#{search_text}%' "). order( " name DESC")}
+  scope :order_by_category_name, :joins => "join test_categories on test_categories.id = tests.test_category_id", :order => "test_categories.name, tests.code"
   COMMISSION_TYPE = ["PERCENTAGE", "AMOUNT"]
 
 
@@ -20,7 +20,7 @@ class Test < ActiveRecord::Base
     if self.commission_type == "PERCENTAGE"
       "#{self.commission_value.to_i}  %"
     else
-      self.commission_value
+      self.commission_value.to_f
     end
   end
 

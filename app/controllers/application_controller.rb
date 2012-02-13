@@ -27,11 +27,23 @@ class ApplicationController < ActionController::Base
      Date.strptime(date_value, "%d/%m/%Y" )
   end
 
-
+  # Remove single quote and double quote from params
+  def remove_special_character(value)
+    value.gsub("'","")
+  end
+  
   #Redirect to requested url if ActiveRecord::RecordNotFound error generates
   def redirect_if_not_found
     flash[:error] = "Sorry, the system couldn&#8217;t find what you were looking for.".html_safe
     redirect_to '/' + controller_path
+  end
+
+  #if user is doing first time login , then redirect to account page
+  def redirect_to_account_page!
+    unless current_user.user_information.is_registered?
+      flash[:error] = "Kindly complete your registration first.".html_safe
+      redirect_to account_url
+    end
   end
 
   # Redirect to home page if routing error generates

@@ -5,9 +5,8 @@
   %td= test.commission_type
   %td= number_to_currency(test.fees,:unit => "")
   %td= test.comission_value
-  %td= test.description
   %td= test.status
-  %td
+  %td.textAlignCenter
     = link_to 'Show', test, :remote => true, :class => "btn info"
     = link_to 'Edit', edit_test_path(test), :class => "btn primary"
     != destroy_active_deactive_button(test)

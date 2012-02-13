@@ -1,12 +1,18 @@
 class TestsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :redirect_to_account_page!
 #  respond_to :html, :js
   # GET /tests
   # GET /tests.xml
   def index
     @current_page = (params[:page] || 1).to_i
-    @tests = current_user.tests.paginate(:page => @current_page)
-
+    if params.include?('search_text')
+      params[:search_text] = remove_special_character(params[:search_text])
+      @tests = current_user.tests.paginate(:page => @current_page).search_by_test_name_test_code_category_name(params[:search_text])
+    else
+      @tests = current_user.tests.paginate(:page => @current_page).order_by_category_name
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @tests }
