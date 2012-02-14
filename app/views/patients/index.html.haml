@@ -29,20 +29,25 @@
           %th Action
           %th
       %tbody
-        - @patients.each_with_index do |patient, i|
+        - unless @patients.blank?
+          - @patients.each_with_index do |patient, i|
+            %tr
+              %td= i + 1
+              %td= patient.refrence_no
+              %td= patient.full_name
+              %td= date_format(patient.test_execution_date)
+              %td= date_format(patient.test_delivery_date)
+              %td= patient.total_amount
+              %td= patient.advance_payment
+              %td= patient.doctor_received_paymet
+              %td= link_to 'Show', patient, :remote => true, :class => "btn info"
+              %td= link_to 'Destroy', patient, :confirm => 'Are you sure?',
+                    :method => :delete, :class => 'btn danger'
+              %td= link_to ' Print ', prescription_print_patient_url(patient), :remote => true, :class => "btn success"
+        - else
           %tr
-            %td= i + 1
-            %td= patient.refrence_no
-            %td= patient.full_name
-            %td= date_format(patient.test_execution_date)
-            %td= date_format(patient.test_delivery_date)
-            %td= patient.total_amount
-            %td= patient.advance_payment
-            %td= patient.doctor_received_paymet
-            %td= link_to 'Show', patient, :remote => true, :class => "btn info"
-            %td= link_to 'Destroy', patient, :confirm => 'Are you sure?',
-                  :method => :delete, :class => 'btn danger'
-            %td= link_to ' Print ', prescription_print_patient_url(patient), :remote => true, :class => "btn success"
+            %td.textAlignCenter{:colspan =>11}
+              No Records
 = will_paginate( @patients, :params => { :anchor => "Patients" } )
 
 :javascript

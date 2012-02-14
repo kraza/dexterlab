@@ -27,7 +27,8 @@
                             'bootstrap-buttons.js',            |
                             'bootstrap-tabs.js',               |
                             'bootstrap-twipsy.js',             |
-                            'bootstrap-popover.js'
+                            'bootstrap-popover.js',         |
+                            'highcharts.js'
 
     = javascript_include_tag 'jquery.treeTable.js',
                             'autocomplete-rails.js',
@@ -91,6 +92,18 @@
             %ul.nav.secondary-nav
               %li= link_to "Log In", new_user_session_path
 
+          %ul.nav.secondary-nav
+            %li.dropdown{ "data-dropdown" => "dropdown" }
+              %a.dropdown-toggle Reports
+              %ul.dropdown-menu
+                %li= link_to "Patients Tests ", reports_url
+                %li= link_to "Test Vs patients", reports_testvspatient_url
+                %li= link_to "Doctor Vs Test", reports_doctorvstest_url
+                %li= link_to "Doctor Vs Patient ", reports_doctorvspatient_url
+
+          %ul.nav.secondary-nav
+            %li= link_to "Dash Board", root_path
+
 
     - if flash[:notice]
       .alert-message.block-message
@@ -108,10 +121,6 @@
       .container
         %p
           Questions about this application?
-          = mail_to( 'query@dexterlab.com', 'Please email query@dexterlab.com.' )
+          = mail_to( 'contacts@ahctechnologies.in', 'Please email contacts@ahctechnologies.in.' )
           %br
-          &copy; 2012, 2013 Dexter Path Lab
-
-    -# flash.each do |name, msg|
-      =# content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
-    =# yield
+          &copy; #{Time.now.year} Dexter Path Lab

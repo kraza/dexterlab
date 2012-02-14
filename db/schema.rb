@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120209073940) do
+ActiveRecord::Schema.define(:version => 20120210114734) do
 
   create_table "accounts", :force => true do |t|
     t.decimal  "paid_amount", :precision => 6, :scale => 2
@@ -126,6 +126,28 @@ ActiveRecord::Schema.define(:version => 20120209073940) do
   add_index "tests", ["test_category_id"], :name => "tests_test_category_id_fk"
   add_index "tests", ["user_id"], :name => "tests_user_id_fk"
 
+  create_table "user_informations", :force => true do |t|
+    t.string   "user_name"
+    t.string   "salutation",    :default => "Mr."
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "category"
+    t.string   "role"
+    t.text     "address"
+    t.string   "phone"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "zipcode"
+    t.boolean  "is_active",     :default => true
+    t.boolean  "is_registered", :default => false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_informations", ["user_id"], :name => "user_informations_user_id_fk"
+
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
@@ -158,5 +180,7 @@ ActiveRecord::Schema.define(:version => 20120209073940) do
 
   add_foreign_key "tests", "test_categories", :name => "tests_test_category_id_fk"
   add_foreign_key "tests", "users", :name => "tests_user_id_fk"
+
+  add_foreign_key "user_informations", "users", :name => "user_informations_user_id_fk"
 
 end

@@ -1,0 +1,60 @@
+.row
+  .span16.textAlignCenter
+    %h3 Reports
+
+#container{:style => "width: 800px; height: 400px; margin: 0 auto"}
+
+
+:javascript
+  var chart;
+  $(document).ready(function() {
+  	chart = new Highcharts.Chart({
+  		chart: {
+  			renderTo: 'container',
+  			defaultSeriesType: 'line',
+  			marginRight: 130,
+  			marginBottom: 25
+  		},
+  		title: {
+  			text: 'Monthly Average Doctors Vs Test Count',
+  			x: -20 //center
+  		},
+  		subtitle: {
+  			text: 'Source: Dexter Labouratory',
+  			x: -20
+  		},
+  		xAxis: {
+  			categories: #{@doctors_name}
+  		},
+  		yAxis: {
+  			title: {
+  				text: 'Test Count'
+  			},
+  			plotLines: [{
+  				value: 0,
+  				width: 1,
+  				color: '#808080'
+  			}]
+  		},
+  		tooltip: {
+  			formatter: function() {
+  	                return ''+ this.series.name +''+
+  					this.x +': '+ this.y ;
+  			}
+  		},
+  		legend: {
+  			layout: 'vertical',
+  			align: 'right',
+  			verticalAlign: 'top',
+  			x: -10,
+  			y: 100,
+  			borderWidth: 0
+  		},
+  		series: [{
+  			name: 'Doctor ',
+  			data: #{@doctors_tests.values}
+  		}]
+  	});
+
+
+  });
