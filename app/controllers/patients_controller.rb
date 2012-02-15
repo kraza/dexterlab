@@ -5,7 +5,10 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.xml
   def index
+
     @current_page = (params[:page] || 1).to_i
+    
+    doctor_test_category_test_values
     
     if params.include?('search_text')
       params[:search_text] = remove_special_character(params[:search_text])
@@ -35,7 +38,8 @@ class PatientsController < ApplicationController
   # GET /patients/new.xml
   def new
     @patient = Patient.new
-    @patient.refrence_no = @patient.reference_number
+    @patient.user = current_user
+    @patient.populate_reference_no!
     @patient.total_amount = @cart.total_amount
     doctor_test_category_test_values
     respond_to do |format|
@@ -174,9 +178,9 @@ class PatientsController < ApplicationController
   end
 
   def doctor_test_category_test_values
-    @doctors = current_user.doctors
-    @test_categories = current_user.test_categories.where(:is_active => true)
-    @tests = current_user.tests.where(:is_active => true)
+    @tests = current_user.active_tests
+    @doctors = current_user.active_doctors
+    @test_categories = current_user.active_test_categories
   end
 
   private :find_cart, :kill_session, :doctor_test_category_test_values

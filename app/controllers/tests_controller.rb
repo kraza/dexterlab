@@ -5,6 +5,7 @@ class TestsController < ApplicationController
   # GET /tests
   # GET /tests.xml
   def index
+    @test_categories_count = current_user.test_categories.where(:is_active => true).count
     @current_page = (params[:page] || 1).to_i
     if params.include?('search_text')
       params[:search_text] = remove_special_character(params[:search_text])

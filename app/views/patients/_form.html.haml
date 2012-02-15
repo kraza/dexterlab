@@ -2,44 +2,56 @@
   .input.field.span8
     = f.error_messages
   .input.field
-    = f.label :refrence_no, :class => 'control-label'
-    = f.text_field :refrence_no, :readonly => true
+    %span{:title=>"patient refrence number."}
+      = f.label :refrence_no, :class => 'control-label'
+      = f.text_field :refrence_no, :readonly => true
   .input.field
-    = f.label :doctor_id
-    = f.select "doctor_id", options_from_collection_for_select(@doctors, "id", "name"), include_blank: true
+    %span{:title=>"Type doctor  name or select from drop down. Only existing doctor can be selected"}
+      = f.label :doctor_id
+      = f.select "doctor_id", options_from_collection_for_select(@doctors, "id", "name", @patient.doctor_id), include_blank: true
   .input.field
-    = f.label :initial_name
-    = f.select :initial_name, Patient::INITIAL_NAME, include_blank: true
+    %span{:title=>"Select salutation either type  or select from drop down. Only existing salutation can be selected"}
+      = f.label "Salutation"
+      = f.select :initial_name, Patient::INITIAL_NAME, include_blank: true
   .input.field
-    = f.label :first_name
-    = f.text_field :first_name
+    %span{:title=>"Patient's first name"}
+      = f.label :first_name
+      = f.text_field :first_name
   .input.field
-    = f.label :last_name
-    = f.text_field :last_name
+    %span{:title=>"Patient's last name"}
+      = f.label :last_name
+      = f.text_field :last_name
   .input.field
-    = label_tag "Test Category "
-    = select_tag "test_category_id", options_from_collection_for_select( @test_categories, "id", "name" ), include_blank: "All Categories"
+    %span{:title=>"Select test category  drop down. On category test will listed on test name field."}
+      = label_tag "Test Category "
+      = select_tag "test_category_id", options_from_collection_for_select( @test_categories, "id", "name" ), include_blank: "All Categories"
   #testFields
     = render :partial => "test_fields", :locals => { :tests => @tests}
   .textAlignCenter
-    = link_to_function "Add Test", "addTest();", :class => "btn enhance-small primary"
+    %span{:title=>"On click add button test will add in patients test list."}
+      = link_to_function "Add Test", "addTest();", :class => "btn enhance-small primary"
   .input.field
     = render :partial => "tests_list"
   .input.field
-    = f.label :test_execution_date
-    = f.datepicker :test_execution_date
+    %span{:title=>"Select date"}
+      = f.label "Test date"
+      = f.datepicker :test_execution_date
   .input.field
-    = f.label :test_delivery_date
-    = f.datepicker :test_delivery_date
+    %span{:title=>"Select date"}
+      = f.label "Delivery Date"
+      = f.datepicker :test_delivery_date
   .input.field
-    = f.label :total_amount
-    = f.text_field :total_amount, :readonly => true
+    %span{:title=>"Total payble amount."}
+      = f.label :total_amount
+      = f.text_field :total_amount, :readonly => true
   .input.field
-    = f.label :advance_payment
-    = f.text_field :advance_payment
+    %span{:title=>"Advance paid amount"}
+      = f.label :advance_payment
+      = f.text_field :advance_payment
   .input.field
-    = f.label "Doctor Received payment"
-    = f.check_box :is_doctor_receoved_payment
+    %span{:title=>"This field will check if doctor alerady received test fee from patient."}
+      = f.label "Doctor Received payment"
+      = f.check_box :is_doctor_receoved_payment
   %br
   .ui-dialog-buttonpane.ui-helper-
     .ui-dialog-buttonset.textAlignCenter
@@ -48,6 +60,7 @@
       = link_to 'Cancel', patients_path
 
 :javascript
+  $('span[title]').twipsy({"html":true, "placement": "right"});
   $("#patient_doctor_id").combobox();
   $("#patient_initial_name").combobox();
   setChangeEvent("test_category_id");

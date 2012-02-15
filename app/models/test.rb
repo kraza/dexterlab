@@ -5,24 +5,28 @@ class Test < ActiveRecord::Base
   attr_accessor :s_no
 
   after_save :set_test_code, :if => "code.empty?"
-  
+
   validates :fees, :commission_value, :numericality => {:greater_than_or_equal_to => 0.01}
   validates :test_category_id, :name, :commission_type, :presence => true
-  validates :code, :uniqueness => true, :unless  => "code.empty?"
+  validates :code, :uniqueness => {:scope => :user_id}, :unless  => "code.empty?"
+
+  validate :commission_value_validation
 
   #scope is defined here
   scope  :search_by_test_name_test_code_category_name,  lambda {|search_text|  joins("join test_categories on test_categories.id = tests.test_category_id"). where("tests.name like '%#{search_text}%'  or tests.code like '%#{search_text}%' or tests.commission_type like '%#{search_text}%' or test_categories.name like '%#{search_text}%' "). order( " name DESC")}
   scope :order_by_category_name, :joins => "join test_categories on test_categories.id = tests.test_category_id", :order => "test_categories.name, tests.code"
+  scope :active, where(:is_active => true)
+
   COMMISSION_TYPE = ["PERCENTAGE", "AMOUNT"]
 
 
   #Set Test Code
   def set_test_code
-    self.code =self.test_category.name[0..1].upcase+ self.name[0..1].upcase+Date.today.month.to_s+self.id.to_s
+    self.code =self.test_category.name[0..1].gsub(" ","").gsub("-","").upcase+ self.name[0..1].upcase+Date.today.month.to_s+self.id.to_s
     self.send("code=", self.code)
     self.save #if code.empty?
   end
-  
+
   #Display commission value in based on commission type.
   def comission_value
     if self.commission_type == "PERCENTAGE"
@@ -39,11 +43,11 @@ class Test < ActiveRecord::Base
 
   # Calculate doctor commission.
   def doctor_commission
-     if self.commission_type == "PERCENTAGE"
-        (self.commission_value)* (self.fees) / 100
-      else
-        self.commission_value
-     end
+    if self.commission_type == "PERCENTAGE"
+      (self.commission_value)* (self.fees) / 100
+    else
+      self.commission_value
+    end
   end
 
   # display status in Active/InActive
@@ -55,4 +59,18 @@ class Test < ActiveRecord::Base
   def line_test_count
     line_tests.count
   end
+
+
+  def commission_value_validation
+    if commission_type == "AMOUNT"
+      unless commission_value.to_f < fees.to_f
+        errors.add(:commission_value, "should be less than or equal to fee.")
+      end
+    elsif commission_type == "PERCENTAGE"
+      if commission_value.to_f > 100.0
+        errors.add(:commission_value, "should be less than 100%.")
+      end
+    end
+  end
+
 end

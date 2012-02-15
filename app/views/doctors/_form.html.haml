@@ -2,47 +2,59 @@
   .input.field.span8
     = f.error_messages
   .input.field
-    = f.label :code
-    = f.text_field :code
+    %span{:title=>"If  it is blank , system will auto generate test code"}
+      = f.label :code
+      = code_field(f)
     %span.label.success Info
     If  it is blank , system will auto generate doctor code
   .input.field
-    = f.label :first_name
-    = f.text_field :first_name
+    %span{:title=>"Doctor's first name"}
+      = f.label :first_name
+      = f.text_field :first_name
   .input.field
-    = f.label :last_name
-    = f.text_field :last_name
+    %span{:title=>"Doctor's last name."}
+      = f.label :last_name
+      = f.text_field :last_name
   .input.field
-    = f.label :designation
-    = f.text_field :designation
+    %span{:title=>"Doctor's current designation."}
+      = f.label :designation
+      = f.text_field :designation
   .input.field
-    = f.label :email
-    = f.email_field :email
+    %span{:title=>"Doctor's email address."}
+      = f.label :email
+      = f.email_field :email
   .input.field
-    = f.label :cell
-    = f.phone_field :cell
+    %span{:title=>"Doctor's cell phone number."}
+      = f.label :cell
+      = f.phone_field :cell
   .input.field
-    = f.label :phone
-    = f.phone_field :phone
+    %span{:title=>"Doctor's fix phone number"}
+      = f.label :phone
+      = f.phone_field :phone
   .input.field
-    = f.label :address1
-    = f.text_field :address1
+    %span{:title=>"Doctor's address"}
+      = f.label "Address"
+      = f.text_field :address1
   .input.field
-    = f.label :address2
-    = f.text_field :address2
+    %span{:title=>"Doctor's street Address"}
+      = f.label "Street"
+      = f.text_field :address2
   .input.field
-    = f.label :postal
-    = f.text_field :postal
+    %span{:title=>"Doctor's city name"}
+      = f.label :city
+      = f.text_field :city
   .input.field
-    = f.label :city
-    = f.text_field :city
+    %span{:title=>"Doctor's State name"}
+      = f.label :state
+      = f.text_field :state
   .input.field
-    = f.label :state
-    = f.text_field :state
-  .input.field
-    = f.label "Status"
-    = f.check_box :is_active
+    %span{:title=>"Doctor's zip code"}
+      = f.label "Zip Code"
+      = f.text_field :postal
   .ui-dialog-buttonset.textAlignCenter
     = f.submit 'Save', :class => 'btn primary'
     or
     = link_to 'Cancel', doctors_path
+
+:javascript
+  $('span[title]').twipsy({"html":true, "placement": "right"});

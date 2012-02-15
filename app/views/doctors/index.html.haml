@@ -12,8 +12,8 @@
     = link_to 'New Doctor', new_doctor_path, :class => "btn primary"
 
 
-%span.label.important
-  Notice : If any doctor referred to any patient then that doctor can not be deleted. It can only be deactivated.
+%span.label.important Notice :
+If any doctor referred to any patient then that doctor can not be deleted. It can only be activate or deactivated.
 
 = will_paginate( @doctors, :params => { :anchor => "Doctors" } )
 
@@ -26,7 +26,7 @@
           %th Name
           %th Designation
           %th Status
-          %th.textAlignCenter{:width => 450} Action
+          %th.textAlignCenter{:width => 500} Action
       %tbody
       - if @doctors.blank?
         %tr

@@ -1,9 +1,10 @@
 .input.field
-  = label_tag "Test Name"
-  - unless tests.blank?
-    = select_tag "test_name_id", options_from_collection_for_select(tests, "id", "name_code"), include_blank: true
-  - else
-    = "No tests found."
+  %span{:title=>"Select test  either type  or select from drop down. Only existing test  can be selected"}
+    = label_tag "Test Name"
+    - unless tests.blank?
+      = select_tag "test_name_id", options_from_collection_for_select(tests, "id", "name_code"), include_blank: true
+    - else
+      = "No tests found."
 
 :javascript
   $("#test_name_id").combobox();

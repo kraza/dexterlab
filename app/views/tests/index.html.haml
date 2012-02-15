@@ -4,7 +4,8 @@
 
 .row
   .span3
-    = link_to 'New Test', new_test_path, :class => "btn primary"
+    = link_to_if(@test_categories_count > 0,  'New Test', new_test_path, :class => "btn primary") do
+      %span.btn.primary.disabled{:title => "Only when test category is available. "} New Test
 
   .span5.fltrgt
     = form_tag(tests_url, :method => :get, :class => 'pull-right' ) do
@@ -12,8 +13,8 @@
         = search_field_tag :search_text, params[:search_text] , :id=>"search_text", :class => 'input-medium search-query', :placeholder => "Search"
         = submit_tag "Search", :class => "btn primary", :id=>'search_tests'
 
-%span.label.important
-  Notice : If any test is assigned to any patient then that test can not be deleted. It can only be deactivated.
+%span.label.important Notice :
+If any test is assigned to any patient then that test can not be deleted. It can only be activate or deactivated.
 
 = will_paginate( @tests, :params => { :anchor => "Tests" } )
 
@@ -41,4 +42,4 @@
 = will_paginate( @tests, :params => { :anchor => "Tests" } )
 
 :javascript
-  $('span[title]').twipsy({"html":true});
+  $('span[title]').twipsy({"html":true,"placement": "right"});

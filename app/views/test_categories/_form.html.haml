@@ -2,16 +2,17 @@
   .input.field.span8
     = f.error_messages
   .input.field
-    = f.label :name
-    = f.text_field :name
+    %span{:title=>"Test Category Name "}
+      = f.label :name
+      = f.text_field :name
   .input.field
-    = f.label :description
-    = f.text_area :description
-  .input.field
-    = f.label :is_active
-    = f.check_box :is_active
-  %br
+    %span{:title=>" Description for test category "}
+      = f.label :description
+      = f.text_area :description
   .ui-dialog-buttonset.textAlignCenter
     = f.submit 'Save', :class => 'btn primary'
     or
     = link_to 'Cancel', test_categories_path
+
+:javascript
+  $('span[title]').twipsy({"html":true, "placement": "right"});

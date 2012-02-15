@@ -12,9 +12,7 @@
     = render :partial => "test", :collection => @cart.items
     %hr
     %tr
-      %td
-      %td
-      %td
+      %td.textAlignCenter{:colspan => 3} Total
       %td#totalAmount= number_to_currency(@cart.total_amount, :unit => "Rs: ")
       %td#totalCommission= number_to_currency(@cart.total_commission, :unit => "Rs: ")
       %td

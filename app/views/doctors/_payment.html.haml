@@ -3,7 +3,7 @@
 Do your payment from here.
 %br
 = form_for( @account, :url => make_payment_doctor_path, :remote => true ) do |f|
-  = render :partial => 'shared/errors', :locals => {:obj => @account}
+  = f.error_messages
   .field
     = f.label 'Amount'
     = f.text_field :dues_amount, :readonly => true

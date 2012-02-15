@@ -11,21 +11,18 @@
         = search_field_tag :search_text, params[:search_text] , :id=>"search_text", :placeholder => 'Search', :class => 'input-medium search-query'
         = submit_tag "Search", :class => "btn primary", :id=>'search_patienst'
 
-%span.label.important
-  Notice : If any test categories's test is assigned to any patient then that test category can not be deleted. It can only be deactivated.
+%span.label.important Notice :
+If any test categories's test is assigned to any patient then that test category can not be deleted. It can only be activate or deactivated.
 
 .row
   .span16
     %table#TestCategory.zebra-striped
       %thead
         %tr
-          %th S.No
           %th Name
           %th Description
           %th Status
-          %th
-          %th Action
-          %th
+          %th.textAlignCenter Action
       %tbody
       - if @test_categories.blank?
         %tr

@@ -1,13 +1,13 @@
 %tr{:id => "id_#{doctor.id}"}
-  %td= doctor.code.upcase
-  %td= doctor.name.titleize
+  %td= link_to doctor.code.upcase, doctor, :remote => true
+  %td= link_to doctor.name.titleize, doctor, :remote => true
   %td= doctor.designation.titleize
   %td= doctor.status
   %td
-    = link_to 'Show', doctor, :remote => true, :class => "btn info"
-    = link_to 'Edit', edit_doctor_path(doctor), :class => "btn primary"
+    = link_to_if( doctor.is_active?, 'Edit', edit_doctor_path(doctor), :class => "btn primary") do
+      %span.btn.primary.disabled Edit
     = link_to_if(doctor.line_test_count > 0,  'Account',  account_doctor_path(doctor), :class => "btn primary") do
       %span.btn.primary.disabled Account
-    = link_to_if(doctor.line_test_count > 0, 'Patients List', patients_list_doctor_url(doctor), :class => "btn primary") do
-      %span.btn.textAlignCenter.primary.disabled Patients List
+    = link_to_if(doctor.line_test_count > 0, 'Patients', patients_list_doctor_url(doctor), :class => "btn primary ") do
+      %span.btn.textAlignCenter.primary.disabled Patients
     != destroy_active_deactive_button(doctor)

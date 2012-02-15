@@ -2,36 +2,41 @@
   .input.field.span8
     = f.error_messages
   .input.field
-    = f.label :test_category_id
-    = f.select "test_category_id", options_from_collection_for_select(@test_categories, "id", "name"), {:include_blank => 'None'}
+    %span{:title=>"Select test category either type  or select from drop down. Only existing test categories can be selected"}
+      = f.label :test_category_id
+      = f.select "test_category_id", options_from_collection_for_select(@test_categories, "id", "name", @test.test_category_id), { :include_blank => 'None'}
   .input.field
-    = f.label :code
-    = f.text_field :code
+    %span{:title=>"If  it is blank , system will auto generate test code"}
+      = f.label :code
+      = code_field(f)
     %span.label.success Info
     If  it is blank , system will auto generate test code
   .input.field
-    = f.label :name
-    = f.text_field :name
+    %span{:title=>"Test name"}
+      = f.label :name
+      = f.text_field :name
   .input.field
-    = f.label :fees
-    = f.text_field :fees
+    %span{:title=>"Test fee value. it should be numeric"}
+      = f.label :fees
+      = f.text_field :fees
   .input.field
-    = f.label :commission_type
-    = f.select :commission_type, Test::COMMISSION_TYPE, include_blank: true
+    %span{:title=>"select type percentage/amount from dropdown or by type some character. Based on type doctors commission will calculate."}
+      = f.label :commission_type
+      = f.select :commission_type, Test::COMMISSION_TYPE, include_blank: true
   .input.field
-    = f.label :commission_value
-    = f.text_field :commission_value
+    %span{:title=>"For  percentage type fill %age value or  for amount type fill amount value"}
+      = f.label :commission_value
+      = f.text_field :commission_value
   .input.field
-    = f.label :description
-    = f.text_area :description
-  .input.field
-    = f.label :is_active
-    = f.check_box :is_active
+    %span{:title=>"Introduction for test"}
+      = f.label :description
+      = f.text_area :description
   .ui-dialog-buttonset.textAlignCenter
     = f.submit 'Save', :class => 'btn primary'
     or
     = link_to 'Cancel', tests_path
 
 :javascript
+  $('span[title]').twipsy({"html":true, "placement": "right"});
   $("#test_test_category_id").combobox();
   $("#test_commission_type").combobox();

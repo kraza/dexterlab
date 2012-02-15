@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   before_create :create_user_information
 
+
   #Create user information entry
   def create_user_information
     self.user_information = UserInformation.new
@@ -56,4 +57,24 @@ class User < ActiveRecord::Base
     end
   end
   
+# Find all active tests for currently logged in user
+  def active_tests
+    tests.active
+  end
+
+  # Find all active doctors for currently logged in user
+  def active_doctors
+    doctors.active
+  end
+
+# Find all active test categories for currently logged in user
+  def active_test_categories
+    test_categories.active
+  end
+
+  def patient_position
+    # Find all active doctors for currently logged in user
+    patients.where("created_at >=?", Date.today ).count.to_i
+  end
+
 end

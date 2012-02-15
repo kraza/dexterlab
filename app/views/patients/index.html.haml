@@ -3,7 +3,9 @@
     %h3 Patient Management
 .row
   .span3
-    = link_to 'New Patient', new_patient_path, :class => "btn primary"
+    = link_to_if((!@doctors.blank? and !@test_categories.blank? and !@tests.blank?),  'New Patient', new_patient_path, :class => "btn primary") do
+      %span.btn.primary.disabled{:title => "Only when tests and doctors are available "} New Patient
+
   .span5.fltrgt
     = form_tag(patients_url, :method => :get, :class => 'pull-right' ) do
       %span{:title=>"Refrence No /  Name "}
@@ -19,36 +21,34 @@
         %tr
           %th S.No
           %th Refrence no
-          %th Name
-          %th Test execution date
-          %th Test delivery date
-          %th Total amount
+          %th.th-width-100 Name
+          %th Test date
+          %th Delivery date
+          %th Amount
           %th Advance payment
-          %th Is doctor receoved payment
-          %th
-          %th Action
-          %th
+          %th Is doctor received payment
+          %th.th-width-165.textAlignCenter Action
       %tbody
         - unless @patients.blank?
           - @patients.each_with_index do |patient, i|
             %tr
               %td= i + 1
-              %td= patient.refrence_no
-              %td= patient.full_name
+              %td= link_to patient.refrence_no, patient,  :remote => true
+              %td= link_to patient.full_name, patient,  :remote => true
               %td= date_format(patient.test_execution_date)
               %td= date_format(patient.test_delivery_date)
               %td= patient.total_amount
               %td= patient.advance_payment
               %td= patient.doctor_received_paymet
-              %td= link_to 'Show', patient, :remote => true, :class => "btn info"
-              %td= link_to 'Destroy', patient, :confirm => 'Are you sure?',
+              %td
+                = link_to 'Destroy', patient, :confirm => 'Are you sure?',
                     :method => :delete, :class => 'btn danger'
-              %td= link_to ' Print ', prescription_print_patient_url(patient), :remote => true, :class => "btn success"
+                = link_to ' Print ', prescription_print_patient_url(patient), :remote => true, :class => "btn success"
         - else
           %tr
-            %td.textAlignCenter{:colspan =>11}
+            %td.textAlignCenter{:colspan =>9}
               No Records
 = will_paginate( @patients, :params => { :anchor => "Patients" } )
 
 :javascript
-  $('span[title]').twipsy({"html":true});
+  $('span[title]').twipsy({"html":true,"placement": "right"});

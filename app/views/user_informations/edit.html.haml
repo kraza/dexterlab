@@ -9,38 +9,52 @@
   .input.field.span8
     = f.error_messages
   .input.field
-    = f.label :user_name
-    = f.text_field :user_name
+    %span{:title=>"User name should be uniques"}
+      = f.label :user_name
+      = f.text_field :user_name
   .input.field
-    = f.label :salutation
-    = f.select :salutation, Patient::INITIAL_NAME
+    %span{:title=>"Your salutation. Select from drop down or type any word"}
+      = f.label :salutation
+      = f.select :salutation, Patient::INITIAL_NAME, include_blank: true
   .input.field
-    = f.label :first_name
-    = f.text_field :first_name
+    %span{:title=>"Your first name."}
+      = f.label :first_name
+      = f.text_field :first_name
   .input.field
-    = f.label :last_name
-    = f.text_field :last_name
+    %span{:title=>"Your last name."}
+      = f.label :last_name
+      = f.text_field :last_name
   .input.field
-    = f.label :address
-    = f.text_field :address
+    %span{:title=>"Your current address."}
+      = f.label :address
+      = f.text_field :address
   .input.field
-    = f.label :phone
-    = f.text_field :phone
+    %span{:title=>"Your phone number"}
+      = f.label :phone
+      = f.text_field :phone
   .input.field
-    = f.label :city
-    = f.text_field :city
+    %span{:title=>"Your current city"}
+      = f.label :city
+      = f.text_field :city
   .input.field
-    = f.label :state
-    = f.text_field :state
+    %span{:title=>"Your current state"}
+      = f.label :state
+      = f.text_field :state
   .input.field
-    = f.label :country
-    = f.text_field :country
+    %span{:title=>"Your current country"}
+      = f.label :country
+      = f.text_field :country
   .input.field
-    = f.label :zipcode
-    = f.text_field :zipcode
+    %span{:title=>"Your zipcode"}
+      = f.label :zipcode
+      = f.text_field :zipcode
   %br
   .ui-dialog-buttonpane.ui-helper-
     .ui-dialog-buttonset.textAlignCenter
       = f.submit 'Save', :class => 'btn primary'
       or
       = link_to 'Cancel', root_path
+
+:javascript
+  $('span[title]').twipsy({"html":true, "placement": "right"});
+  $("#account_salutation").combobox();

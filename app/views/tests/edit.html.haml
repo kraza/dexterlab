@@ -1,12 +1,5 @@
 .row
-  .span
-    %h3
-      Edit Test #{@test.name}
+  .span14.textAlignCenter
+    %h3 Edit Test #{@test.name}
 
 = render 'form'
-
-:javascript
-  $("#test_test_category_id").val("#{@test.test_category_id}")
-  $("#test_test_category_id_text").val("#{@test.test_category.name}");
-  $("#test_commission_type").val("#{@test.commission_type}")
-  $("#test_commission_type_text").val("#{@test.commission_type}");

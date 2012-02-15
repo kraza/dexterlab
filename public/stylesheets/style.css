@@ -155,3 +155,7 @@ footer {
 		margin: .8em 0 .2em;
 		line-height: 1.5;
 	}
+
+  .th-width-100{width: 100px  !important;}
+  .th-width-140{width: 140px  !important;}
+  .th-width-165{width: 165px  !important;}

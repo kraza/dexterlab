@@ -8,12 +8,13 @@ class Doctor < ActiveRecord::Base
   after_save :set_doc_code, :if => "code.empty?"
 
   validates  :first_name, :designation, :cell, :presence => true
-  validates :email,   :presence => true,  :uniqueness => true, :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-  validates :code, :uniqueness => true, :unless  => "code.empty?"
+  validates :email,   :presence => true,  :uniqueness => {:scope => :user_id}, :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+  validates :code, :uniqueness => {:scope => :user_id}, :unless  => "code.empty?"
 
 
   #scope defined here
   scope :order_by_code_asc, :order => "code"
+  scope :active, where(:is_active => true).order(:code)
   scope  :search_by_first_name_last_name_code,  lambda {|search_text| where("code like '%#{search_text}%'  or designation like '%#{search_text}%' or first_name like '%#{search_text}%'  or  last_name like '%#{search_text}%' "). order( "code")}
 
   def name
@@ -22,7 +23,7 @@ class Doctor < ActiveRecord::Base
 
 
   def set_doc_code
-    self.code = self.first_name[0..2].upcase+"-"+Date.today.year.to_s+"-"+self.id.to_s
+    self.code = self.first_name[0..2].upcase+Date.today.month.to_s+self.id.to_s
     self.send("code=", self.code)
     self.save #if code.empty?
   end

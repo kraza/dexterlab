@@ -1,12 +1,12 @@
 %tr{:id => "id_#{test.id}"}
   %td= test.test_category.name.humanize
-  %td= test.code
-  %td= test.name
+  %td= link_to test.code.upcase, test, :remote => true
+  %td= link_to test.name.upcase, test, :remote => true
   %td= test.commission_type
   %td= number_to_currency(test.fees,:unit => "")
   %td= test.comission_value
   %td= test.status
   %td.textAlignCenter
-    = link_to 'Show', test, :remote => true, :class => "btn info"
-    = link_to 'Edit', edit_test_path(test), :class => "btn primary"
+    = link_to_if(test.is_active?, 'Edit', edit_test_path(test), :class => "btn primary ") do
+      %span.btn.primary.disabled Edit
     != destroy_active_deactive_button(test)

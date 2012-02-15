@@ -53,7 +53,7 @@ class TestCategoriesController < ApplicationController
 
     respond_to do |format|
       if @test_category.save
-        format.html { redirect_to(@test_category, :notice => 'Test category was successfully created.') }
+        format.html { redirect_to(test_categories_url, :notice => 'Test category was successfully created.') }
         format.xml  { render :xml => @test_category, :status => :created, :location => @test_category }
       else
         format.html { render :action => "new" }

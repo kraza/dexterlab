@@ -1,9 +1,8 @@
 %tr{:id => "id_" + test_category.id.to_s}
-  %td= test_category.name
-  %td= test_category.description
+  %td= link_to test_category.name.titleize, test_category, :remote => true
+  %td= truncate(test_category.description,  :length => 20)
   %td= test_category.status
-  %td= link_to 'Show', test_category, :remote => true, :class => "btn  info"
-  %td= link_to 'Edit', edit_test_category_path(test_category),
-        :class => "btn primary"
-  %td
+  %td.textAlignCenter
+    = link_to_if( test_category.is_active?, 'Edit', edit_test_category_path(test_category),:class => "btn primary") do
+      %span.btn.primary.disabled Edit
     != destroy_active_deactive_button(test_category)
