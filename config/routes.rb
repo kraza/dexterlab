@@ -13,12 +13,11 @@ Dexterlab::Application.routes.draw do
 
   #  put "user_informations/:id" => "user_informations/update"
   #resources :user_informations, :only => [:update]
-  
+
   match  "account" => "user_informations#update", :via => :post
   match  "account" => "user_informations#edit"#, : => :get
   #get "user_informations/:id/edit", :as => 'account'
   #match "user_informations/edit" => "account"
-  resources :tests
 
   resources :reports, :only => :index
 
@@ -43,11 +42,9 @@ Dexterlab::Application.routes.draw do
     end
   #tests_test_category GET    /test_categories/:id/tests(.:format) {:action=>"tests", :controller=>"test_categories"}
   # Get the list of all tests related to that specific test category.
+  resources :tests
   resources :test_categories do
-    member do
-      get 'tests'
-    end
-
+    resources :tests, :only => :index
   end
 
   #get "welcome/index"

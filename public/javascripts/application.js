@@ -176,3 +176,9 @@ $(document).ready (function( $ ) {
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
+// method to redirect to nested resoure of test categories test from test management page.
+function categoryTest(){
+  var category_id = $("#category_id").val();
+  window.location.href = "/test_categories/" +category_id +"/tests";
+}

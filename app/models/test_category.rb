@@ -25,4 +25,10 @@ class TestCategory < ActiveRecord::Base
   def status
     is_active? ? "Active" : "In Active"
   end
+
+  #Display name in upcase
+  def name_upcase
+    name.upcase
+  end
+  
 end

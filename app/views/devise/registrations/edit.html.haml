@@ -1,0 +1,22 @@
+%h2
+  Edit #{resource_name.to_s.humanize}
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+  = devise_error_messages!
+  .input.field
+    = f.label :email
+    = f.email_field :email
+  .input.field
+    = f.label :password
+    %i (leave blank if you don't want to change it)
+  .input.field
+    = f.password_field :password
+  .input.field
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+  .input.field
+    = f.label :current_password
+    %i (we need your current password to confirm your changes)
+    .input.field
+    = f.password_field :current_password
+  .ui-dialog-buttonset.textAlignCenter
+    = f.submit "Update", :class => "btn primary"

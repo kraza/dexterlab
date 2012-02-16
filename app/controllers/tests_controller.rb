@@ -5,13 +5,19 @@ class TestsController < ApplicationController
   # GET /tests
   # GET /tests.xml
   def index
-    @test_categories_count = current_user.test_categories.where(:is_active => true).count
+   
+    @test_categories = current_user.test_categories.active
+    @test_categories_count = @test_categories.count
     @current_page = (params[:page] || 1).to_i
-    if params.include?('search_text')
-      params[:search_text] = remove_special_character(params[:search_text])
-      @tests = current_user.tests.paginate(:page => @current_page).search_by_test_name_test_code_category_name(params[:search_text])
+    if params.key?("test_category_id")
+      @tests = @test_categories.find(params[:test_category_id]).tests.paginate(:page => @current_page)
     else
       @tests = current_user.tests.paginate(:page => @current_page).order_by_category_name
+    end
+    
+    if params.include?('search_text')
+      params[:search_text] = remove_special_character(params[:search_text])
+      @tests = @tests.search_by_test_name_test_code_category_name(params[:search_text])
     end
     
     respond_to do |format|

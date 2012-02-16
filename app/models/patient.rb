@@ -103,7 +103,7 @@ class Patient < ActiveRecord::Base
   def test_date
     if test_execution_date and test_delivery_date
       if test_execution_date > test_delivery_date
-        errors.add(:test_delivery_date, "should be greater test date.")
+        errors.add(:test_delivery_date, "should be greater then test date.")
       end
     end
   end

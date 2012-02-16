@@ -6,3 +6,5 @@
     = link_to_if( test_category.is_active?, 'Edit', edit_test_category_path(test_category),:class => "btn primary") do
       %span.btn.primary.disabled Edit
     != destroy_active_deactive_button(test_category)
+    = link_to_if( test_category.is_active?, 'Tests',  test_category_tests_path(test_category),:class => "btn primary") do
+      %span.btn.primary.disabled Tests

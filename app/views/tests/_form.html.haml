@@ -4,7 +4,7 @@
   .input.field
     %span{:title=>"Select test category either type  or select from drop down. Only existing test categories can be selected"}
       = f.label :test_category_id
-      = f.select "test_category_id", options_from_collection_for_select(@test_categories, "id", "name", @test.test_category_id), { :include_blank => 'None'}
+      = f.select "test_category_id", options_from_collection_for_select(@test_categories, "id", "name_upcase", @test.test_category_id), { :include_blank => 'None'}
   .input.field
     %span{:title=>"If  it is blank , system will auto generate test code"}
       = f.label :code

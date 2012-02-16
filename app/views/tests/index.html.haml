@@ -13,6 +13,15 @@
         = search_field_tag :search_text, params[:search_text] , :id=>"search_text", :class => 'input-medium search-query', :placeholder => "Search"
         = submit_tag "Search", :class => "btn primary", :id=>'search_tests'
 
+.row
+  .span12.textAlignCenter
+    %span{:title=>"Select category from drop down or type in text field."}
+      %b Test Category:
+      &nbsp;
+      = select_tag "category_id", options_from_collection_for_select(@test_categories, "id", "name_upcase"), { :include_blank => 'None' }
+      &nbsp;
+      = link_to_function "Submit", "categoryTest();", :class => "btn primary"
+%br
 %span.label.important Notice :
 If any test is assigned to any patient then that test can not be deleted. It can only be activate or deactivated.
 
@@ -31,7 +40,7 @@ If any test is assigned to any patient then that test can not be deleted. It can
           %th Value
           %th Status
           %th.textAlignCenter{:width => 300} Action
-      %tbody
+      %tbody#testbody
       - if @tests.blank?
         %tr
           %td.textAlignCenter{:colspan => 8}
@@ -42,4 +51,5 @@ If any test is assigned to any patient then that test can not be deleted. It can
 = will_paginate( @tests, :params => { :anchor => "Tests" } )
 
 :javascript
-  $('span[title]').twipsy({"html":true,"placement": "right"});
+  $('span[title]').twipsy({"html":true,"placement": "below"});
+  $("#category_id").combobox();
