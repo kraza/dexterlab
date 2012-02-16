@@ -6,8 +6,10 @@
   %td
     = link_to_if( doctor.is_active?, 'Edit', edit_doctor_path(doctor), :class => "btn primary") do
       %span.btn.primary.disabled Edit
+    &nbsp;
     = link_to_if(doctor.line_test_count > 0,  'Account',  account_doctor_path(doctor), :class => "btn primary") do
       %span.btn.primary.disabled Account
+    &nbsp;
     = link_to_if(doctor.line_test_count > 0, 'Patients', patients_list_doctor_url(doctor), :class => "btn primary ") do
       %span.btn.textAlignCenter.primary.disabled Patients
     != destroy_active_deactive_button(doctor)
